@@ -1,0 +1,7 @@
+.color{
+    background-color: blue;
+}
+
+nav .nav-link{
+    color: white !important;
+}
