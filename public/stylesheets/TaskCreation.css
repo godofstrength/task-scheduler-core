@@ -1,0 +1,134 @@
+body{
+    text-decoration: none;
+}
+.wrapper{
+    background-color: #fff;
+    width: 600px;
+    height: 650px;
+    padding: 25px;
+    margin: 25px auto 0;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0,0.5);
+}
+img{
+    align-content: center;
+}
+.input-text{
+    background-color: #fcfcfc;
+}
+.container{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 4%;
+    margin-left: 30%;
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ededed;
+
+    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
+    -wekit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
+    box-shadow:  0px 0px 5px 1px rgba(0,0,0,0.3);
+}
+textarea{
+    margin: 5px;
+    border: none;
+    outline: none;
+    resize: none;
+}
+.label.labels{
+    font-weight: 600;
+    font-size: 14px;
+    color: #686868;
+}
+.textarea_style{
+    margin: 5px;
+    width: auto;
+    height: auto;
+    border: 1px solid #EBF6FF;
+    border-radius: 2px;
+    font-size: 16px;
+}
+.textarea_style:hover{
+    -moz-box-shadow: 0px 0px 10px 1px #EBF6FF;
+    -wekit-box-shadow: 0px 0px 10px 1px #EBF6FF;
+    box-shadow:  0px 0px 10px 1px #EBF6FF;
+    border: 1px solid #FFF;
+}
+.textarea_style:focus{
+    -moz-box-shadow: 0px 0px 5px 1px #EBF6FF;
+    -wekit-box-shadow: 0px 0px 5px 1px #EBF6FF;
+    box-shadow:  0px 0px 5px 1px #EBF6FF;
+    border: 1px solid #FFf;
+}
+textarea::-webkit-scrollbar{
+    width: 5px;
+}
+textarea::-webkit-scrollbar-track{
+    -webkit-box-shadow:inset 0 0 10px #BDDAE0;
+}
+textarea::-webkit-scrollbar-thumb{
+    background-color: #0BBFF9;
+}
+span.textarea_count{
+    margin-top: 2px;
+    float: right;
+    font-size: 14px;
+    color: red;
+}
+input[type=submit]{
+    float: right;
+    padding: 5px;
+    margin-top: 10px;
+    width: 15%;
+    height: 50%;
+    border-radius: 5px;
+    background: white;
+    font-weight: bold;
+    height: auto;
+    cursor: pointer;
+    border-color: blue;
+}
+.input-text{
+    display: block;
+    width: 100%;
+    height: 36px;
+    border-width: 0 0 2px 0;
+    border-color:blue;
+    font-size: 18px;
+    line-height: 26px;
+    line-height: 26px;
+    font-weight: 400;
+}
+.input-text:focus{
+    outline: none;
+}
+.form .label{
+    position: absolute;
+    left: 20px;
+    bottom: 11px;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+    color: blue;
+    cursor: text;
+    transition: transform 0.2s ease-in-out;
+}
+hr{
+    width: 28%;
+    color: blue !important;
+}
+.select{
+    padding: 8px 12px;
+    color: grey;
+    background-color: #eeeeee;
+    border: 1px solid #dddddd;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.select:focus,
+.select:hover{
+    outline: none;
+    border: 1px solid #bbbbbb;
+}
+.select option{
+    background: #ffffff;
+}
+      
