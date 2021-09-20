@@ -4,3 +4,11 @@
     font-size: 15px;
 }
 
+
+.color{
+    background-color: blue;
+}
+
+nav .nav-link{
+    color: white !important;
+}

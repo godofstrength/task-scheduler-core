@@ -1,7 +1,30 @@
-.color{
-    background-color: blue;
+
+
+*{
+    overflow-x: hidden;
 }
 
-nav .nav-link{
-    color: white !important;
+ul{
+   list-style: none;
+  
+}
+
+li{
+    position: relative;
+    left: 5px;
+    padding-top: 20px;
+}
+
+i{
+    font-size: 15px;
+}
+.color1{
+    background:  #f2f2f2;
+
+}
+
+.size{
+    padding-top: 20px;
+    width: 90px;
+    height: 100vh;
 }
