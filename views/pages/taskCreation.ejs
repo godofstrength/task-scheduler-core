@@ -10,54 +10,56 @@
     </head>
     <body>
 
-        <div class="wrapper">
-           <div align='center'>
-            <img src="InterraLogo.png">
-           </div>
-           
-            <h2 align='center'>CREATE TASK</h2>
-            <div class="form">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <input type="text" class="input-text" id="myInput">
-                <select style="float: right;" id="user" class="select">
-                    <option>From:</option>
-                    <option value="Ebuka">Ebuka</option>
-                    <option  value="Tisha">Tisha</option>
-                    <option  value="Charles">Charles</option>
-                    <option  value="Ekene">Ekene</option>
-                    <option value="Jude">Jude</option>
-                </select>
-            </div>
-
-            <div class="form">
-                <i class="fa fa-users" aria-hidden="true"></i>
-                <input type="text" class="input-text" id="ourInput">
-                <select style="float: right;" id="users" class="select">
-                    <option>To:</option>
-                    <option value="Ebuka">Ebuka</option>
-                    <option value="Tisha">Tisha</option>
-                    <option value="Charles">Charles</option>
-                    <option value="Ekene">Ekene</option>
-                    <option value="Jude">Jude</option>
-                </select>
-            </div><br>
-            
-            <h5>Description of Work: </h5>
-            <hr>
-           <div class="container">
-               <form1>
-                   <div class="textarea_style">
-                     <textarea rows="6" cols="70" class="textarea" id="textarea" name="textarea_description"  placeholder="Write your description here..."
-                     maxlength="100" minlength="3"></textarea>
-                   </div><br>
-               </form1>
-           </div>
-           
-            <div>
-                <input type="submit" onclick="alert('submitted')">
-            </div>
-        </div>
-    </body>
+        <form>
+            <div class="wrapper">
+                <div align='center'>
+                 <img src="InterraLogo.png">
+                </div>
+                
+                 <h2 align='center'>CREATE TASK</h2>
+                 <div class="form">
+                     <i class="fa fa-user" aria-hidden="true"></i>
+                     <input type="text" class="input-text" id="myInput">
+                     <select style="float: right;" id="user" class="select">
+                         <option>From:</option>
+                         <option value="Ebuka">Ebuka</option>
+                         <option  value="Tisha">Tisha</option>
+                         <option  value="Charles">Charles</option>
+                         <option  value="Ekene">Ekene</option>
+                         <option value="Jude">Jude</option>
+                     </select>
+                 </div>
+     
+                 <div class="form">
+                     <i class="fa fa-users" aria-hidden="true"></i>
+                     <input type="text" class="input-text" id="ourInput">
+                     <select style="float: right;" id="users" class="select">
+                         <option>To:</option>
+                         <option value="Ebuka">Ebuka</option>
+                         <option value="Tisha">Tisha</option>
+                         <option value="Charles">Charles</option>
+                         <option value="Ekene">Ekene</option>
+                         <option value="Jude">Jude</option>
+                     </select>
+                 </div><br>
+                 
+                 <h5>Description of Work: </h5>
+                 <hr>
+                <div class="container">
+                    <form1>
+                        <div class="textarea_style">
+                          <textarea rows="6" cols="70" class="textarea" id="textarea" name="textarea_description"  placeholder="Write your description here..."
+                          maxlength="100" minlength="3"></textarea>
+                        </div><br>
+                    </form1>
+                </div>
+                
+                 <div>
+                     <input type="submit" onclick="alert('submitted')">
+                 </div>
+             </div>
+         </body>
+        </form>
 
     <script>
         var user = document.getElementById('user')
