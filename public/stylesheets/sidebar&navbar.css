@@ -2,27 +2,30 @@
     overflow-x: hidden;
 }
 
-ul{
-   list-style: none;
-  
-}
 
-li{
-    position: relative;
-    padding-top: 20px;
-    right: 15px;
-}
 
-i{
-    font-size: 15px;
-}
-.color1{
-    background:  #f2f2f2;
-
-}
-
-.size{
-    padding-top: 20px;
-    width: 80px;
-    height: 100vh;
-}
+.row ul{
+    list-style: none;
+   
+ }
+ 
+ .row li{
+     position: relative;
+     padding-top: 20px;
+     right: 15px;
+ }
+ 
+ .row i{
+     font-size: 15px;
+ }
+ .color1{
+     background:  #f2f2f2;
+ 
+ }
+ 
+ .size{
+     padding-top: 20px;
+     width: 80px;
+     height: 100vh;
+ }
+ 
