@@ -3,8 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
+require('./utils/Passport')(passport);
 
+
+
+
+
+// var usersRouter = require('./routes/users');
 var indexRouter = require('./routes/index');
+// DB connection
+const sequelize = require('./config/connection');
+
+
+
 
 var app = express();
 
@@ -12,18 +26,47 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// bootstrap js and query node modules static
+app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
+
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Express session
+app.use(session({
+  secret : 'secret',
+  resave : false,
+  saveUninitialized : false,
+}));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// connect flash
+app.use(flash());
+
+// Global variables
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error')
+  next();
+})
 app.use(cookieParser());
 
-// bootstrap js node modules static
-app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
-app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', indexRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -40,5 +83,4 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 module.exports = app;

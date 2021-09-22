@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const {createWorkspaceValidation, validate} = require('../utils/Validator')
 const UserController = require('../controllers/UserController');
 const AdminController = require('../controllers/AdminController');
 const TaskController =  require('../controllers/TaskController');
@@ -16,12 +17,10 @@ router.post('/login', UserController.login)
 router.get('/dashboard', function(req, res){
   res.render('layout/dashboard');
 })
-router.get('/create-task', function(req, res){
-  res.render('pages/taskCreation');
-})
+router.get('/create-task', TaskController.createTask);
 // admin routes
-router.get('/admin', AdminController.index);
-
+router.post('/admin/create-user', AdminController.createUser);
+router.post('/admin/create-workspace', createWorkspaceValidation(), validate, WorkspaceController.createworkspace)
 // postman testing
 
 module.exports = router;
