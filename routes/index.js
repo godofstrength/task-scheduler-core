@@ -23,6 +23,10 @@ router.get('/dashboard', function(req, res){
   res.render('layout/dashboard');
 })
 router.get('/create-task', TaskController.createTask);
+
+router.get('/taskCreation' , function(req, res){
+  res.render('pages/taskCreation');
+})
 // admin routes
 router.post('/admin/create-user', AdminController.createUser);
 router.post('/admin/create-workspace', createWorkspaceValidation(), validate, WorkspaceController.createworkspace)
