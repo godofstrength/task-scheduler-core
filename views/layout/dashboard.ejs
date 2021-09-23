@@ -132,26 +132,8 @@
         </div>
     </div>
    
-      <script>
-        (function($) {
-    "use strict";
-
-    // Add active state to sidbar nav links
-    var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
-        $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
-            if (this.href === path) {
-                $(this).addClass("active");
-            }
-        });
-
-    
-    $("#sidebarToggle").on("click", function(e) {
-        e.preventDefault();
-        $("body").toggleClass("sb-sidenav-toggled");
-    });
-    })(jQuery);
-
-      </script>
+      <script src="./scripts/scripts.js"></script>
       <script src="./js/bootstrap.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     </body>
 </html>
