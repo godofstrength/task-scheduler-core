@@ -1,29 +1,24 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Department_Users', {
+    await queryInterface.createTable('Assignee-Feedbacks', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      task_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         refrences: {
-          model: 'users',
+          model: 'tasks',
           foreignKey: 'id'
         }
       },
-      department_id: {
-        type: Sequelize.INTEGER,
-        refrences: {
-          model: 'department',
-          foreignKey: 'id'
-        }
-      },
-      role: {
-        type: Sequelize.INTEGER
+      comment: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -36,6 +31,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Department_Users');
+    await queryInterface.dropTable('Assignee-Feedbacks');
   }
 };

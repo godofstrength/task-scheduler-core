@@ -35,8 +35,17 @@ module.exports = {
       assignedTo: {
         type: Sequelize.STRING(255)
       },
-      deadline: {
+      start_date: {
         type: Sequelize.DATE
+      },
+      end_date: {
+        type: Sequelize.DATE
+      },
+      status: {
+        type: Sequelize.INTEGER
+      },
+      priority:{
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

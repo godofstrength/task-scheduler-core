@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-const User = sequelize.define('Role_User', {
+const Role_User = sequelize.define('Role_User', {
     id: {
         type : DataTypes.INTEGER(11),
         allowNull: false,
@@ -9,7 +9,7 @@ const User = sequelize.define('Role_User', {
         autoIncrement: true
     },
     user_id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       refrences: {
         model: 'users',
@@ -17,7 +17,7 @@ const User = sequelize.define('Role_User', {
       }
     },
     role_id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       refrences:{
       model : 'roles',
@@ -29,14 +29,13 @@ const User = sequelize.define('Role_User', {
    },
    createdAt: {
     allowNull: false,
-    type: Sequelize.DATE
+    type: DataTypes.DATE
   },
   updatedAt: {
     allowNull: false,
-    type: Sequelize.DATE
+    type: DataTypes.DATE
   }
     
 })
-User.associate = () => {
-}
-module.exports = User;
+
+module.exports = Role_User;
