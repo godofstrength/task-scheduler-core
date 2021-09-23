@@ -132,8 +132,27 @@
         </div>
     </div>
    
-      <script src="./scripts/scripts.js"></script>
+      <script>
+         (function($) {
+          "use strict";
+
+    
+          var path = window.location.href; 
+          $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
+            if (this.href === path) {
+                $(this).addClass("active");
+            }
+          });
+
+    
+          $("#sidebarToggle").on("click", function(e) {
+          e.preventDefault();
+          $("body").toggleClass("sb-sidenav-toggled");
+          });
+        })(jQuery);
+      </script>
       <script src="./js/bootstrap.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+      <script src="./jquery/jquery.js"></script>
+      
     </body>
 </html>
