@@ -15,9 +15,7 @@ router.get('/', function(req, res){
 router.post('/login', UserController.login)
 
 // user creation
-router.get('/create-user', function(req, res) {
-  res.render('pages/userCreation');
-})
+router.get('/create-user',AdminController.userCreation) 
 
 router.get('/dashboard', function(req, res){
   res.render('layout/dashboard');

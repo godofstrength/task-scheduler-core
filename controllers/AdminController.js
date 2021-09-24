@@ -6,7 +6,7 @@ const AdminController = {
         res.render('pages/admin')
     },
 
-
+   
     createUser(req, res){
         const {email, password, password_confirm} = req.body;
         let errors = [];
@@ -67,9 +67,11 @@ const AdminController = {
                 }
             })
     }
-}
+},
+    userCreation(){
+        res.render('pages/userCreation');
+    }
 
-
-}
+};
 
 module.exports = AdminController
