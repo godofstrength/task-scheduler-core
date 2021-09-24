@@ -8,13 +8,27 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      department_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        refrences: {
+          model: 'departments',
+          foreignKey: 'id'
+        }
+      },
       title: {
         type: Sequelize.STRING
       },
       description: {
         type: Sequelize.STRING
       },
-      workspace_id: {
+      client: {
+        type: Sequelize.STRING,
+      },
+      budget: {
+        type: Sequelize.DECIMAL(15,2)
+      },
+      created_by:{
         type: Sequelize.INTEGER
       },
       createdAt: {

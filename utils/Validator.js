@@ -1,9 +1,9 @@
 const {check, body, validationResult} = require('express-validator');
 
-const  createWorkspaceValidation = () =>{
+const  createDepartmentValidation = () =>{
      return[
-         body('title', 'workspace title is required').exists({checkFalsy: true}).notEmpty(),
-         body('description', 'workspace title is required').exists({checkFalsy: true}).notEmpty(),
+         body('title', 'department title is required').exists({checkFalsy: true}).notEmpty(),
+         body('description', 'department description is required').exists({checkFalsy: true}).notEmpty(),
          body('logo').optional()
      ]
  }
@@ -12,10 +12,8 @@ const  createWorkspaceValidation = () =>{
         if (errors.isEmpty()) {
             return next()
         }
-        const extractedErrors = []
-        errors.array().map(err => extractedErrors.push({ msg: err.msg }))
-
-        // console.log(errors.array());
+        const extractedErrors = [];
+        errors.array().map(err => extractedErrors.push({ message: err.msg }))
 
         res.json({
             statusCode: 400,
@@ -23,6 +21,6 @@ const  createWorkspaceValidation = () =>{
         })
     }
 module.exports = {
-    createWorkspaceValidation,
+    createDepartmentValidation,
     validate
 }

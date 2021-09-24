@@ -1,6 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
-const Role = require('./Role')
+const Role = require('./Role');
+const Department = require('./Department');
+const Workspace_User = require('./Department_User')
 
 const User = sequelize.define('User', {
     id: {
@@ -8,6 +10,14 @@ const User = sequelize.define('User', {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
+    },
+    firstname:{
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
+    lastname:{
+        type: DataTypes.STRING(255),
+        allowNull: false
     },
     email : {
         type : DataTypes.STRING,
@@ -21,6 +31,6 @@ const User = sequelize.define('User', {
     
 })
 User.associate = () => {
-  User.hasMany(Role, {through: 'user_id'})
+  User.belongsToMany(Department, {through: Department_User})
 }
 module.exports = User;

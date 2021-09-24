@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const {createWorkspaceValidation, validate} = require('../utils/Validator')
+const {ensureAuthenticated} = require('../utils/Authenticated')
+const {createDepartmentValidation, validate} = require('../utils/Validator')
 const UserController = require('../controllers/UserController');
 const AdminController = require('../controllers/AdminController');
 const TaskController =  require('../controllers/TaskController');
-const WorkspaceController = require('../controllers/WorkSpaceController')
+const DepartmentController = require('../controllers/DepartmentController')
 
 /* GET home page. */
 // render login form
@@ -27,7 +28,13 @@ router.get('/taskCreation' , function(req, res){
 })
 // admin routes
 router.post('/admin/create-user', AdminController.createUser);
-router.post('/admin/create-workspace', createWorkspaceValidation(), validate, WorkspaceController.createworkspace)
+router.post('/admin/create-department', ensureAuthenticated,createDepartmentValidation(), validate, DepartmentController.createDepartment)
+router.get('/create-task', function(req, res){
+  res.render('pages/taskCreation');
+})
+// admin routes
+router.get('/admin', AdminController.index);
+
 // postman testing
 
 module.exports = router;

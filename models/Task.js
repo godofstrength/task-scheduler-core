@@ -1,50 +1,50 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Task extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
+
+const Task = sequelize.define('Task', {
+  id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: DataTypes.INTEGER
+  },
+  user_id:{
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    refrences: {
+      model: 'users',
+      primaryKey: 'id'
     }
-  };
-  Task.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
-    user_id:{
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      refrences: {
-        model: 'users',
-        primaryKey: 'id'
-      }
-    },
-    title: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    description: {
-      type: DataTypes.STRING(500),
-      allowNull: false
-    },
-    assignedTo: {
-      type: DataTypes.STRING(255)
-    },
-    deadline: {
-      type: DataTypes.DATE
+  },
+  project_id: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    refrences: {
+      model: 'projects',
+      primaryKey: 'id'
     }
-  }, {
-    sequelize,
-    modelName: 'Task',
-  });
-  return Task;
-};
+  },
+  title: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  },
+  description: {
+    type: DataTypes.STRING(500),
+    allowNull: false
+  },
+  assignedTo: {
+    type: DataTypes.STRING(255)
+  },
+  start_date: {
+    type: DataTypes.DATE
+  },
+  end_date: {
+    type: DataTypes.DATE
+  },
+  status: {
+    type: DataTypes.INTEGER
+  },
+  priority:{
+    type: DataTypes.INTEGER
+  }
+})
