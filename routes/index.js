@@ -15,10 +15,19 @@ router.get('/', function(req, res){
 // login user
 router.post('/login', UserController.login)
 
-router.get('/dashboard', ensureAuthenticated,function(req, res){
+// user creation
+router.get('/create-user', function(req, res) {
+  res.render('pages/userCreation');
+})
+
+router.get('/dashboard', function(req, res){
   res.render('layout/dashboard');
 })
 router.get('/create-task', TaskController.createTask);
+
+router.get('/taskCreation' , function(req, res){
+  res.render('pages/taskCreation');
+})
 // admin routes
 router.post('/admin/create-user', AdminController.createUser);
 router.post('/admin/create-department', createWorkspaceValidation(), validate, DepartmentController.createworkspace)

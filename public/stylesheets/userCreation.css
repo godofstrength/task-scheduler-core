@@ -1,0 +1,29 @@
+form{
+    width: 375px;
+    padding-top: 30px;
+    margin: auto;
+    text-align: justify;
+    
+}
+
+
+
+
+#btn-color{
+    color:#f2f2f2;
+    background-color: #2e9cca;
+    width: 375px;
+    padding-bottom: 11px;
+    padding-top: 11px;
+    margin: auto;
+}
+
+
+
+#formbox{
+    width: 410px;
+    background-color: white;
+    margin-top: 90px;
+    margin-bottom: 90px;
+    border: 1px;
+}
