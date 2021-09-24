@@ -18,8 +18,12 @@ const UserController = {
         req.flash('success_msg', 'Logout successful');
         res.redirect('/')
     },
-    userCreation(req,res){
-        res.render('pages/userCreation');
+    reset(req, res){
+        res.render('pages/resetPassword')
+    },
+
+    forget(req, res){
+        res.render('pages/forgetPassword')
     },
 
     async sendPasswordResetToken (req, res) {

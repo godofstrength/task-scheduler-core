@@ -16,7 +16,13 @@ router.get('/', function(req, res){
 router.post('/login', UserController.login)
 
 // user creation
-router.get('/create-user',AdminController.userCreation) 
+router.get('/create-user',AdminController.userCreation);
+
+// reset password
+router.get('/reset_password', UserController.reset);
+
+//forget password
+router.get('/forget_password', UserController.forget);
 
 router.get('/dashboard', function(req, res){
   res.render('layout/dashboard');
