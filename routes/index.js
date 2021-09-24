@@ -29,6 +29,9 @@ router.get('/taskCreation' , function(req, res){
   res.render('pages/taskCreation');
 })
 // admin routes
+router.get('/admin/createUser', function(req, res){
+  res.render('pages/userCreation');
+} );
 router.post('/admin/create-user', AdminController.createUser);
 router.post('/admin/create-department', ensureAuthenticated,createDepartmentValidation(), validate, DepartmentController.createDepartment)
 router.get('/create-task', function(req, res){

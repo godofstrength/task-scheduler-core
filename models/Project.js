@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize/types");
 const sequelize = require('../config/connection');
+const Task = require('./Task')
 
 const Project = sequelize.define('Project', {
   id: {
@@ -32,3 +33,9 @@ const Project = sequelize.define('Project', {
     type: DataTypes.INTEGER
   }
 })
+
+Project.associate = () =>{
+  Project.hasMany(Task)
+}
+
+module.exports = Project;

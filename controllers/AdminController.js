@@ -1,5 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const Department = require('../models/Department');
+const sequelize = require('../config/connection');
+const Department_User = require('../models/Department_User');
 
 const AdminController = {
     index(req, res){
@@ -8,11 +11,14 @@ const AdminController = {
 
 
     createUser(req, res){
-        const {email, password, password_confirm} = req.body;
+        const {firstname, lastname, email, password, password_confirm, department_id} = req.body;
         let errors = [];
         // check required fields
-        if(!email || !password || !password_confirm){
+        if(!firstname || !lastname || !email || !password || !password_confirm){
             errors.push({msg: 'please fill in all fields'})
+        }
+        if(!department_id){
+            errors.push({msg: 'please specify a department'})
         }
         // check password match
         if(password !== password_confirm){
@@ -37,13 +43,13 @@ const AdminController = {
                 if(user){
                     // user exist
                     errors.push({msg: 'Email is already registered'})
-                    res.json({
-                        errors: errors
-                    })
-                    // res.render('register', {
-                    //     errors,
-                    //     email
+                    // res.json({
+                    //     errors: errors
                     // })
+                    res.render('pages/userCreation', {
+                        errors,
+                        email
+                    })
                 }else{
                     const newUser = User.build({
                         email : email,
@@ -56,12 +62,18 @@ const AdminController = {
                         newUser.password = hash;
                         newUser.save()
                         .then(user =>{
-                            res.json({
-                                message: 'user created'
+                            Department_User.create({
+                                user_id: user.id,
+                                department_id: department_id,
+                                role: 1
                             })
-                            // req.flash('success_msg', 'You are now registered')
-                            // res.redirect('/login')
-                        })
+                            .then(result => {
+                                res.render('pages/userCreation', {success_msg: 'user created successfully'})
+                            })
+                            .catch(err=> {
+                                res.render('pages/userCreation', {error_msg: err.msg})
+                            })
+                            })
                         .catch(err => console.log(err));
                     }))
                 }
