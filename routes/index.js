@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const {ensureAuthenticated} = require('../utils/Authenticated')
-const {createWorkspaceValidation, validate} = require('../utils/Validator')
+const {createDepartmentValidation, validate} = require('../utils/Validator')
 const UserController = require('../controllers/UserController');
 const AdminController = require('../controllers/AdminController');
 const TaskController =  require('../controllers/TaskController');
@@ -30,7 +30,7 @@ router.get('/taskCreation' , function(req, res){
 })
 // admin routes
 router.post('/admin/create-user', AdminController.createUser);
-router.post('/admin/create-department', createWorkspaceValidation(), validate, DepartmentController.createworkspace)
+router.post('/admin/create-department', ensureAuthenticated,createDepartmentValidation(), validate, DepartmentController.createDepartment)
 router.get('/create-task', function(req, res){
   res.render('pages/taskCreation');
 })

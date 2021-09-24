@@ -3,7 +3,7 @@ const sequelize = require('../config/connection');
 const User = require('./User');
 const Department = require('./Department')
 
-const Workspace_User = sequelize.define('Department_User', {
+const Department_User = sequelize.define('Department_User', {
   id: {
     allowNull: false,
     autoIncrement: true,
