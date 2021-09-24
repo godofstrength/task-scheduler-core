@@ -68,7 +68,7 @@ const AdminController = {
             })
     }
 },
-    userCreation(){
+    userCreation(req, res){
         res.render('pages/userCreation');
     }
 
