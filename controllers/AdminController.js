@@ -9,7 +9,6 @@ const AdminController = {
         res.render('pages/admin')
     },
 
-   
     createUser(req, res){
         const {firstname, lastname, email, password, password_confirm, department_id} = req.body;
         let errors = [];
@@ -52,6 +51,8 @@ const AdminController = {
                     })
                 }else{
                     const newUser = User.build({
+                        firstname: firstname,
+                        lastname: lastname,
                         email : email,
                         password: password
                     });
