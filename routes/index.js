@@ -34,7 +34,7 @@ router.get('/dashboard', function(req, res){
 })
 
 // admin routes
-router.get('/admin/createUser', AdminController.userIndex);
+
 router.post('/admin/create-user', AdminController.createUser);
 router.post('/admin/create-department',createDepartmentValidation(), validate, DepartmentController.createDepartment)
 
