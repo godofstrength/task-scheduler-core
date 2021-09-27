@@ -12,6 +12,7 @@ const DepartmentController = {
     Department.create({
         created_by: req.user.id,
         title: title,
+        description: description,
         code: code.toUpperCase(),
     })
     .then(result => {

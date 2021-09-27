@@ -1,6 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
-
+const Project = require("./Project");
+const Task_Progress = require('./Task_Progress');
+const Assignee_Feedback = require('./Assignee_Feedback')
 const Task = sequelize.define('Task', {
   id: {
     allowNull: false,
@@ -48,3 +50,11 @@ const Task = sequelize.define('Task', {
     type: DataTypes.INTEGER
   }
 })
+
+Task.associate =()=>{
+  Task.belongsTo(Project);
+  Task.hasMany(Task_Progress);
+  Task.hasMany(Assignee_Feedback)
+}
+
+module.exports = Task
