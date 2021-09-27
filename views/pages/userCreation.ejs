@@ -8,8 +8,14 @@
     <script src="https://kit.fontawesome.com/743fcf6cf7.js" crossorigin="anonymous"></script>
     <script src="../js/bootstrap.min.js"></script>
     <title>User Creation-Admin</title>
+    <style>
+      body{
+        background-color:#fff;
+      }
+    </style>
   </head>
   <body>
+    <h3 class="mb-3 text-center">Create a new user</h3>
     <div class="container-sm" id="formbox" style="box-shadow: 0 15px 30px 0 rgb(0 0 0 / 10%);">
         <form action="/admin/create-user" method="POST">
            <h3 class="mb-3" style="text-align: center;">Create User</h3>
@@ -22,6 +28,28 @@
             <label for="input" class="form-label">Last Name</label>
             <input type="text" name="lastname" class="form-control" id="input" placeholder="Lastname" required>
            </div>
+           <div class=" mb-3">
+            <label for="department" class="form-label">Department</label>
+            <select class="form-select" id="department">
+              <option selected></option>
+              <option value="1">Lorem ipsum dolor</option>
+              <option value="2">Lorem ipsum dolor</option>
+              <option value="3">Lorem ipsum dolor</option>
+              <option value="4">Lorem ipsum dolor</option>
+              <option value="5">Lorem ipsum dolor</option>
+            </select>
+          </div>
+          <div class=" mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select class="form-select" id="role">
+              <option selected></option>
+              <option value="1">Lorem ipsum dolor</option>
+              <option value="2">Lorem ipsum dolor</option>
+              <option value="3">Lorem ipsum dolor</option>
+              <option value="4">Lorem ipsum dolor</option>
+              <option value="5">Lorem ipsum dolor</option>
+            </select>
+          </div>
            <div class="mb-3">
             <label for="input" class="form-label">Email</label>
             <input type="email" name="email" class="form-control" id="input" placeholder="Only@example.com">
@@ -34,14 +62,14 @@
             </div>
            </div>
            <div class="mb-3">
-            <label for="input" class="form-label">Password Confirm</label>
+            <label for="input" class="form-label">Confirm password</label>
             <input type="password" name="passsword_confirm" class="form-control" id="input">
            </div>
            <br>
            
            <br>
            <div class="mb-3 text-end">
-               <button type="submit" class="btn" id="btn-color">Submit</button>
+               <button type="submit" class="btn" id="btn-color">Create new user</button>
            </div>
            <br>
         </form>

@@ -9,7 +9,7 @@ const AdminController = {
         res.render('pages/admin')
     },
 
-
+   
     createUser(req, res){
         const {firstname, lastname, email, password, password_confirm, department_id} = req.body;
         let errors = [];
@@ -79,9 +79,11 @@ const AdminController = {
                 }
             })
     }
-}
+},
+    userCreation(req, res){
+        res.render('pages/userCreation');
+    }
 
-
-}
+};
 
 module.exports = AdminController

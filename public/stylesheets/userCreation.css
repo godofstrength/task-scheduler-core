@@ -6,7 +6,9 @@ form{
     
 }
 
-
+h3{
+    padding-top: 60px;
+}
 
 
 #btn-color{
@@ -21,9 +23,9 @@ form{
 
 
 #formbox{
-    width: 410px;
+    width: 425px;
     background-color: white;
-    margin-top: 90px;
+    margin-top: 30px;
     margin-bottom: 90px;
     border: 1px;
 }

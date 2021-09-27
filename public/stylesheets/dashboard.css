@@ -11,6 +11,13 @@
     background-color: white;
     min-height: 100vh;
   }
+
+  i{
+    font-size: 20px;
+  }
+  main{
+    padding: 30px 30px 0 30px;
+  }
   .dropdown-item{
     font-size: 12.5px;
   }
