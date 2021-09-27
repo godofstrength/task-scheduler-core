@@ -17,8 +17,7 @@ router.get('/', function(req, res){
 // login user
 router.post('/login', UserController.login)
 
-// user creation
-router.get('/create-user',AdminController.userCreation);
+
 
 // login 
 router.get('/user-login',UserController.userLogin)
@@ -28,13 +27,11 @@ router.get('/reset_password', UserController.reset);
 
 //forget password
 router.get('/forget_password', UserController.forget);
-
-router.get('/dashboard', function(req, res){
-  res.render('layout/dashboard');
-})
+// dashboard
+router.get('/dashboard', AdminController.index)
 
 // admin routes
-
+router.get('/admin/createUser', AdminController.userCreation);
 router.post('/admin/create-user', AdminController.createUser);
 router.post('/admin/create-department',createDepartmentValidation(), validate, DepartmentController.createDepartment)
 

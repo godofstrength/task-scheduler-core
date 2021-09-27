@@ -5,8 +5,18 @@ const sequelize = require('../config/connection');
 const Department_User = require('../models/Department_User');
 
 const AdminController = {
-    index(req, res){
-        res.render('pages/admin')
+   async index(req, res){
+        // try {
+        //     const department = await Department.findAll();
+        //     if(!department)
+        // } catch (error) {
+        //     console.log(error.msg)
+        // }
+        res.render('layout/dashboard');
+    },
+
+    userCreation(req, res){
+        res.render('pages/userCreation');
     },
 
     createUser(req, res){
@@ -81,9 +91,7 @@ const AdminController = {
             })
     }
 },
-    userCreation(req, res){
-        res.render('pages/userCreation');
-    }
+ 
 
 };
 
