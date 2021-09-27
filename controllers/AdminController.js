@@ -6,13 +6,13 @@ const Department_User = require('../models/Department_User');
 
 const AdminController = {
    async index(req, res){
-        // try {
-        //     const department = await Department.findAll();
-        //     if(!department)
-        // } catch (error) {
-        //     console.log(error.msg)
-        // }
-        res.render('layout/dashboard');
+    // if user is admin
+        const departments = await Department.findAll({
+            attributes: {exclude: ['createdAt', 'updatedAt']}
+        });
+
+    // else
+        res.render('layout/dashboard', {departments: departments});
     },
 
     userCreation(req, res){
