@@ -18,6 +18,9 @@ router.post('/login', UserController.login)
 // user creation
 router.get('/create-user',AdminController.userCreation);
 
+// login 
+router.get('/user-login',UserController.userLogin)
+
 // reset password
 router.get('/reset_password', UserController.reset);
 

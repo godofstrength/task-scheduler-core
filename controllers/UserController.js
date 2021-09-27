@@ -26,6 +26,10 @@ const UserController = {
         res.render('pages/forgetPassword')
     },
 
+    userLogin(req, res){
+        res.render('pages/login')
+    },
+
     async sendPasswordResetToken (req, res) {
         let errors = [];
         try {
