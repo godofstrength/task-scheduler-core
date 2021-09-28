@@ -18,26 +18,20 @@ router.get('/', function(req, res){
 router.post('/login', UserController.login)
 
 
-
-// login 
-router.get('/user-login',UserController.userLogin)
-
 // reset password
 router.get('/reset_password', UserController.reset);
 
 //forget password
 router.get('/forget_password', UserController.forget);
 // dashboard
-router.get('/dashboard', AdminController.index)
+router.get('/dashboard', ensureAuthenticated, AdminController.index)
 
 // admin routes
-router.get('/admin/createUser', AdminController.userCreation);
 router.post('/admin/create-user', AdminController.createUser);
 router.post('/admin/create-department',createDepartmentValidation(), validate, DepartmentController.createDepartment)
 
-router.get('/:department_id/create-project', ProjectController.createProject)
-// admin routes
-router.get('/admin', AdminController.index);
+// project routes
+router.get('/:department_id/create-project', ProjectController.createProject);
 // task routes 
 router.get('/:project_id/tasks', TaskController.index)
 router.get('/:project_id/create-task', TaskController.createTaskPage);

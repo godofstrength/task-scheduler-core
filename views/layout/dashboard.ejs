@@ -44,24 +44,19 @@
                       </div>
                       <div class=" mb-3">
                        <label for="department" class="form-label">Department</label>
-                       <select class="form-select" id="department">
+                       <select class="form-select" id="department" name="department_id">
                          <option selected></option>
-                         <option value="1">Lorem ipsum dolor</option>
-                         <option value="2">Lorem ipsum dolor</option>
-                         <option value="3">Lorem ipsum dolor</option>
-                         <option value="4">Lorem ipsum dolor</option>
-                         <option value="5">Lorem ipsum dolor</option>
+                        <% departments.forEach(department => { %>
+                         <option value="<%=department.id %>"><%= department.code %> </option>
+                        <% }) %>
                        </select>
                      </div>
                      <div class=" mb-3">
                        <label for="role" class="form-label">Role</label>
-                       <select class="form-select" id="role">
+                       <select class="form-select" id="role" name="role">
                          <option selected></option>
-                         <option value="1">Lorem ipsum dolor</option>
-                         <option value="2">Lorem ipsum dolor</option>
-                         <option value="3">Lorem ipsum dolor</option>
-                         <option value="4">Lorem ipsum dolor</option>
-                         <option value="5">Lorem ipsum dolor</option>
+                         <option value="1">Admin</option>
+                         <option value="2">Member</option>
                        </select>
                      </div>
                       <div class="mb-3">
@@ -79,12 +74,13 @@
                        <label for="input" class="form-label">Confirm password</label>
                        <input type="password" name="passsword_confirm" class="form-control" id="input">
                       </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create User</button>
+                      </div>
                    </form>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" >Create User</button>
-                  </div>
+                
                 </div>
               </div>
             </div>
@@ -194,7 +190,7 @@
       <div id="layoutSidenav_content">
           <main>
               <div class="container-fluid">
-                
+                <% include('../partials/messages')%> 
                 <div class="row">
                   <% departments.forEach(department => { %>
                     <div class="col-md-6">
@@ -207,7 +203,7 @@
                             <div class="card-body">
                               <h5 class="card-title"><%= department.title %> </h5>
                               <p class="card-text"><%= department.description %> </p>
-                              <a href="" class="btn btn-primary">See <%= department.code %> </a>
+                              <a href="/<%= department.id %>/projects" class="btn btn-primary">See <%= department.code %> </a>
                             </div>
                           </div>
                         </div>
@@ -231,25 +227,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="/admin/create-department" method="POST">
           <div class="mb-3">
            <label for="input" class="form-label">Name</label>
-           <input type="text" class="form-control" id="input" placeholder="">
+           <input type="text" class="form-control" id="input" name="title" placeholder="">
           </div>
           <div class="mb-3">
             <label for="input" class="form-label">Code</label>
-            <input type="text" class="form-control" id="input" placeholder="">
+            <input type="text" class="form-control" name="code" id="input" placeholder="">
            </div>
            <div class="mb-3">
             <label for="input" class="form-label">Description</label>
-            <input type="text" class="form-control" id="input" placeholder="">
+            <input type="text" class="form-control" name="description" id="input" placeholder="">
            </div>
+           <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Create Department</button>
+          </div>
        </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Create Department</button>
-      </div>
+     
     </div>
   </div>
 </div>

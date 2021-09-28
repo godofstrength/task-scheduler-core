@@ -13,16 +13,16 @@ const Department_User = sequelize.define('Department_User', {
   user_id: {
     type:DataTypes.INTEGER,
     refrences: {
-      model: 'users',
-      foreignKey: 'id'
+      model: User,
+      Key: 'id'
     }
   },
   department_id: {
     type:DataTypes.INTEGER,
     allowNull: false,
     refrences: {
-      model: 'Department',
-      foreignKey: 'id'
+      model: Department,
+      Key: 'id'
     }
   },
   role: {
@@ -30,6 +30,7 @@ const Department_User = sequelize.define('Department_User', {
   }
   
 })
+
 
 
 

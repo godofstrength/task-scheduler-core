@@ -6,24 +6,23 @@ const Department_User = require('../models/Department_User');
 
 const AdminController = {
    async index(req, res){
-    // if user is admin
-        const departments = await Department.findAll({
-            attributes: {exclude: ['createdAt', 'updatedAt']}
-        });
+        const user = await User.findOne({
+            where: {id: req.user.id}
+             })
 
+            const departments = await Department.findAll({
+                attributes: {exclude: ['createdAt', 'updatedAt']}
+            });
+       
     // else
         res.render('layout/dashboard', {departments: departments});
     },
 
-    userCreation(req, res){
-        res.render('pages/userCreation');
-    },
-
     createUser(req, res){
-        const {firstname, lastname, email, password, password_confirm, department_id} = req.body;
+        const {firstname, lastname, email, password, password_confirm, department_id, role} = req.body;
         let errors = [];
         // check required fields
-        if(!firstname || !lastname || !email || !password || !password_confirm){
+        if(!firstname || !lastname || !email || !password || !password_confirm || !role){
             errors.push({msg: 'please fill in all fields'})
         }
         if(!department_id){
@@ -41,21 +40,13 @@ const AdminController = {
             res.json({
                 error: errors
             });
-            // res.render('register', {
-            //     errors,
-            //     email
-            // })
         }else{
             //  check if user already exist
             User.findOne({where: {email: email}})
             .then(user => {
                 if(user){
-                    // user exist
                     errors.push({msg: 'Email is already registered'})
-                    // res.json({
-                    //     errors: errors
-                    // })
-                    res.render('pages/userCreation', {
+                    res.render('layout/dashboard', {
                         errors,
                         email
                     })
@@ -76,13 +67,13 @@ const AdminController = {
                             Department_User.create({
                                 user_id: user.id,
                                 department_id: department_id,
-                                role: 1
+                                role: role
                             })
                             .then(result => {
-                                res.render('pages/userCreation', {success_msg: 'user created successfully'})
+                                res.render('layout/dashboard', {success_msg: 'user created successfully'})
                             })
                             .catch(err=> {
-                                res.render('pages/userCreation', {error_msg: err.msg})
+                                res.render('layout/dashboard', {error_msg: err.msg})
                             })
                             })
                         .catch(err => console.log(err));

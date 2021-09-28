@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const Role = require('./Role');
 const Department = require('./Department');
-const Workspace_User = require('./Department_User')
+const Department_User = require('./Department_User')
 
 const User = sequelize.define('User', {
     id: {

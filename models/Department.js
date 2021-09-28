@@ -14,7 +14,7 @@ const Department = sequelize.define('Department', {
     allowNull: false,
     type: DataTypes.INTEGER,
     refrences: {
-      model: 'users',
+      model: User,
       foreignKey: 'id'
     }
   },
@@ -31,7 +31,7 @@ const Department = sequelize.define('Department', {
 })
 
 Department.associate = ()=>{
-  Department.HasMany(User, {through: Department_User})
+  Department.BelongsToMany(User, {through: Department_User})
 }
 
 module.exports = Department;

@@ -5,7 +5,7 @@ module.exports = {
             return next();
         }else{
             req.flash('error_msg','You need to login to continue');
-            res.redirect('/login');
+            res.redirect('/');
         }
     }
 }
