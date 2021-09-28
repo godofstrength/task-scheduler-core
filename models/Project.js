@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require('../config/connection');
+const Department = require("./Department");
 const Task = require('./Task')
 
 const Project = sequelize.define('Project', {
@@ -35,7 +36,8 @@ const Project = sequelize.define('Project', {
 })
 
 Project.associate = () =>{
-  Project.hasMany(Task)
+  Project.hasMany(Task);
+  Project.belongsTo(Department, {foreignKey: 'department_id'})
 }
 
 module.exports = Project;

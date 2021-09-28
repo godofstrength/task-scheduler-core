@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const User = require('./User');
 const Department_User = require('./Department_User');
+const Project = require('./Project');
 
 const Department = sequelize.define('Department', {
   id: {
@@ -31,7 +32,8 @@ const Department = sequelize.define('Department', {
 })
 
 Department.associate = ()=>{
-  Department.BelongsToMany(User, {through: Department_User})
+  Department.BelongsToMany(User, {through: Department_User});
+  Department.hasMany(Project)
 }
 
 module.exports = Department;
