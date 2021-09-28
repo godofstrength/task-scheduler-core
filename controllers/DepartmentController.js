@@ -19,10 +19,12 @@ const DepartmentController = {
         code: code.toUpperCase(),
     })
     .then(result => {
-        res.render('layout/dashboard',{success_msg: 'Department created'});
+        req.flash({success_msg: 'department created successfully'})
+        res.redirect('/dashboard');
     })
     .catch(err => {
-        res.render('layout/dashboard', {error_msg: 'Unable to perform request'})
+        req.flash({error_msg: err.msg})
+        res.redirect('/dashboard')
     })
 
     }

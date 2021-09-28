@@ -4,7 +4,7 @@ const  createDepartmentValidation = () =>{
      return[
          body('title', 'department title is required').exists({checkFalsy: true}).notEmpty(),
          body('description', 'department description is required').exists({checkFalsy: true}).notEmpty(),
-         body('logo').optional()
+         body('code', 'department code is required').notEmpty()
      ]
  }
     const validate =(req, res, next)=>{
