@@ -31,6 +31,7 @@ router.post('/admin/create-user', AdminController.createUser);
 router.post('/admin/create-department',createDepartmentValidation(), validate, DepartmentController.createDepartment)
 
 // project routes
+router.get('/:department_id/projects', DepartmentController.index)
 router.get('/:department_id/create-project', ProjectController.createProject);
 // task routes 
 router.get('/:project_id/tasks', TaskController.index)

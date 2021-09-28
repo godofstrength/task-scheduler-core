@@ -3,7 +3,10 @@ const Department = require('../models/Department');
 const DepartmentController = {
     //department index page
     index(req, res){
-        res.render('pages/department')
+        Department.findOne({where: {id: req.params.Department_id}})
+        .then()
+        .catch()
+        res.render('pages/projectList')
     },
 
     createDepartment(req, res){
