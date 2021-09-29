@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "migrate": "npx sequelize-cli db:migrate",
-    "migrate_undo": "npx sequelize-cli db:migrate:undo:all"
+    "migrate_undo": "npx sequelize-cli db:migrate:undo:all",
+    "seed" : "npx sequelize-cli db:seed:all"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

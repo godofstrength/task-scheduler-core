@@ -1,27 +1,17 @@
 'use strict';
-
+const bcrypt = require('bcryptjs')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-
-    await queryInterface.bulkInsert('roles', [{
+    const fields = [{
       id: 1,
-      name: 'SuperAdmin',
-      permission: '',
+      firstname: 'admin',
+      lastname: 'test',
+      email: 'admin@gmail.com',
+      password: '$2a$10$qM4G1qSrflJNhM4PJ8mRA.YDg8kVpOP346SwFzibSxxHO7SuKOlwu', //123456
       createdAt : new Date(),
       updatedAt : new Date()
-    }, {
-      id: 2,
-      name: 'Admin',
-      permission: '',
-      createdAt : new Date(),
-      updatedAt : new Date()
-    }, {
-      id: 3,
-      name: 'Member',
-      permission: '',
-      createdAt : new Date(),
-      updatedAt : new Date()
-    }])
+    }]
+    await queryInterface.bulkInsert('users', fields,{})
     /**
      * Add seed commands here.
      *

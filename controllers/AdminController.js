@@ -37,19 +37,14 @@ const AdminController = {
             errors.push({msg: 'password should be at least 6 characters'})
         }
         if(errors.length > 0){
-            res.json({
-                error: errors
-            });
+           res.redirect('/dashboard')
         }else{
             //  check if user already exist
             User.findOne({where: {email: email}})
             .then(user => {
                 if(user){
                     errors.push({msg: 'Email is already registered'})
-                    res.render('layout/dashboard', {
-                        errors,
-                        email
-                    })
+                    res.redirect('/dashboard')
                 }else{
                     const newUser = User.build({
                         firstname: firstname,
@@ -70,10 +65,10 @@ const AdminController = {
                                 role: role
                             })
                             .then(result => {
-                                res.render('layout/dashboard', {success_msg: 'user created successfully'})
+                               res.redirect('/dashboard')
                             })
                             .catch(err=> {
-                                res.render('layout/dashboard', {error_msg: err.msg})
+                               res.redirect('/dashboard')
                             })
                             })
                         .catch(err => console.log(err));

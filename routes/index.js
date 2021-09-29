@@ -16,7 +16,7 @@ router.get('/', function(req, res){
 })
 // login user
 router.post('/login', UserController.login)
-
+router.get('/logout', UserController.logout)
 
 // reset password
 router.get('/reset_password', UserController.reset);

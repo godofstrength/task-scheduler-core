@@ -3,24 +3,12 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
 
-    await queryInterface.bulkInsert('roles', [{
+    await queryInterface.bulkInsert('role_users', [{
       id: 1,
-      name: 'SuperAdmin',
-      permission: '',
-      createdAt : new Date(),
-      updatedAt : new Date()
-    }, {
-      id: 2,
-      name: 'Admin',
-      permission: '',
-      createdAt : new Date(),
-      updatedAt : new Date()
-    }, {
-      id: 3,
-      name: 'Member',
-      permission: '',
-      createdAt : new Date(),
-      updatedAt : new Date()
+      user_id: 1,
+      role_id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }])
     /**
      * Add seed commands here.
@@ -34,8 +22,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-
-    await queryInterface.bulkDelete('users', null, {})
+    await queryInterface.bulkDelete('role_users', null, {})
     /**
      * Add commands to revert seed here.
      *
