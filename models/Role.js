@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-const User = sequelize.define('Role', {
+const Role = sequelize.define('Role', {
     id: {
         type : DataTypes.INTEGER(11),
         allowNull: false,
@@ -17,6 +17,6 @@ const User = sequelize.define('Role', {
     }
     
 })
-User.associate = () => {
+Role.associate = () => {
 }
-module.exports = User;
+module.exports = Role;

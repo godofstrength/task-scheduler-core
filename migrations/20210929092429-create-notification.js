@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('role_users', {
+    await queryInterface.createTable('Notifications', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,20 +13,14 @@ module.exports = {
         allowNull: false,
         refrences: {
           model: 'users',
-          foreignkey: 'id'
+          foreignKey: 'id'
         }
       },
-      role_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        refrences:{
-        model : 'roles',
-        foreignkey: 'id'
-        }
+      title: {
+        type: Sequelize.STRING
       },
-      end_at: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+      read: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -39,6 +33,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('role_users');
+    await queryInterface.dropTable('Notifications');
   }
 };
