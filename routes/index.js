@@ -24,7 +24,7 @@ router.get('/reset_password', UserController.reset);
 //forget password
 router.get('/forget_password', UserController.forget);
 // dashboard
-router.get('/dashboard', ensureAuthenticated, AdminController.index)
+router.get('/dashboard', AdminController.index)
 
 // admin routes
 router.post('/admin/create-user', AdminController.createUser);
