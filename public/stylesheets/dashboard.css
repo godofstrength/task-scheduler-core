@@ -24,6 +24,10 @@
   .input-group input{
     width: 10px;
 }
+
+.navbar {
+  background-color: rgb(0, 92, 128);
+}
 /* .navbar-brand{
    /* justify-content: center; 
 } */

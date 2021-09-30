@@ -21,6 +21,8 @@ router.get('/logout', UserController.logout)
 // reset password
 router.get('/reset_password', UserController.reset);
 
+// dashboard 2
+router.get('/projectDashboard',AdminController.dashboard2)
 //forget password
 router.get('/forget_password', UserController.forget);
 // dashboard
