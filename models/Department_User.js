@@ -1,37 +1,34 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-const User = require('./User');
-const Department = require('./Department')
-
-const Department_User = sequelize.define('Department_User', {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataTypes.INTEGER
-  },
-  user_id: {
-    type:DataTypes.INTEGER,
-    refrences: {
-      model: User,
-      Key: 'id'
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Department_User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
     }
-  },
-  department_id: {
-    type:DataTypes.INTEGER,
-    allowNull: false,
-    refrences: {
-      model: Department,
-      Key: 'id'
-    }
-  },
-  role: {
-    type: DataTypes.INTEGER
-  }
-  
-})
-
-
-
-
-module.exports = Department_User;
+  };
+  Department_User.init({
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    department_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    role: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+  }, {
+    sequelize,
+    tableName: 'department_users',
+    modelName: 'Department_User',
+  });
+  return Department_User;
+};

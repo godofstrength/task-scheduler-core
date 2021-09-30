@@ -1,13 +1,18 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-
-const Role_User = sequelize.define('Role_User', {
-    id: {
-        type : DataTypes.INTEGER(11),
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
-    },
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Role_User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+    }
+  };
+  Role_User.init({
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -24,18 +29,14 @@ const Role_User = sequelize.define('Role_User', {
       foreignkey: 'id'
       }
     },
-   end_at :{
-     type : DataTypes.DATE,
-   },
-   createdAt: {
-    allowNull: false,
-    type: DataTypes.DATE
-  },
-  updatedAt: {
-    allowNull: false,
-    type: DataTypes.DATE
-  }
-    
-})
-
-module.exports = Role_User;
+    end_at: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+  }, {
+    sequelize,
+    tableName: 'role_users',
+    modelName: 'Role_User',
+  });
+  return Role_User;
+};

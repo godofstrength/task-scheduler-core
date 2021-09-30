@@ -1,7 +1,8 @@
-const User = require('../models/User');
+const {User} = require('../models/User');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const {Token} = require('../models/Token')
 
 
 const UserController = {

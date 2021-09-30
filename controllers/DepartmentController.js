@@ -24,7 +24,6 @@ const DepartmentController = {
         // create Department
     const {title, description, code} = req.body;
     Department.create({
-        created_by: req.user.id,
         title: title,
         description: description,
         code: code.toUpperCase(),

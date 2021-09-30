@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const {ensureAuthenticated} = require('../utils/Authenticated')
-const {createDepartmentValidation, validate} = require('../utils/Validator')
+const {createDepartmentValidation, validate, isAdmin} = require('../utils/Validator')
 const UserController = require('../controllers/UserController');
 const AdminController = require('../controllers/AdminController');
 const TaskController =  require('../controllers/TaskController');
 const DepartmentController = require('../controllers/DepartmentController');
-const ProjectController = require('../controllers/ProjectController')
+const ProjectController = require('../controllers/ProjectController');
 
 
 /* GET home page. */
@@ -24,11 +24,11 @@ router.get('/reset_password', UserController.reset);
 //forget password
 router.get('/forget_password', UserController.forget);
 // dashboard
-router.get('/dashboard', ensureAuthenticated, AdminController.index)
+router.get('/dashboard', ensureAuthenticated, isAdmin, AdminController.index)
 
 // admin routes
-router.post('/admin/create-user', AdminController.createUser);
-router.post('/admin/create-department',createDepartmentValidation(), validate, DepartmentController.createDepartment)
+router.post('/admin/create-user', ensureAuthenticated, AdminController.createUser);
+router.post('/admin/create-department', ensureAuthenticated ,createDepartmentValidation(), validate, DepartmentController.createDepartment)
 
 // project routes
 router.get('/:department_id/projects',ensureAuthenticated, DepartmentController.index)
