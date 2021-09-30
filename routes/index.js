@@ -22,7 +22,7 @@ router.get('/logout', UserController.logout)
 router.get('/reset_password', UserController.reset);
 
 // dashboard 2
-router.get('/projectDashboard',AdminController.dashboard2)
+router.get('/projectDashboard', ProjectController.dashboard2);
 //forget password
 router.get('/forget_password', UserController.forget);
 // dashboard

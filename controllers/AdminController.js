@@ -78,9 +78,7 @@ const AdminController = {
     }
 },
  
-dashboard2(res,req){
-    res.render('layout/pdashboard')
-},
+
 
 };
 
