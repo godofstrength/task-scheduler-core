@@ -15,7 +15,7 @@ const DepartmentController = {
            }
         })
      if(projects){
-       res.render('pages/projectList', {projects: projects, department: department})
+       res.render('layout/pdashboard', {projects: projects, department: department})
      }else{
         res.redirect('/dashboard')
      }
