@@ -1,5 +1,5 @@
-const Department = require('../models/Department');
-const Project = require('../models/Project');
+const Department = require('../models/').Department;
+const Project = require('../models/').Project;
 
 const DepartmentController = {
     //department index page
@@ -24,7 +24,6 @@ const DepartmentController = {
         // create Department
     const {title, description, code} = req.body;
     Department.create({
-        created_by: req.user.id,
         title: title,
         description: description,
         code: code.toUpperCase(),

@@ -1,39 +1,37 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-const User = require('./User');
-const Department_User = require('./Department_User');
-const Project = require('./Project');
-
-const Department = sequelize.define('Department', {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataTypes.INTEGER(11)
-  },
-  created_by: {
-    allowNull: false,
-    type: DataTypes.INTEGER,
-    refrences: {
-      model: User,
-      foreignKey: 'id'
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Department extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
     }
-  },
-  title: {
-    type: DataTypes.STRING(255),
-    allowNull: false
-  },
-  description: {
-    type: DataTypes.STRING
-  },
-  code:{
-    type: DataTypes.STRING(255)
-  }
-})
-
-Department.associate = ()=>{
-  Department.BelongsToMany(User, {through: Department_User});
-  Department.hasMany(Project)
-}
-
-module.exports = Department;
+  };
+  Department.init({
+    id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    title: {
+      type: DataTypes.STRING
+    },
+    description: {
+      type: DataTypes.STRING
+    },
+    code: {
+      type: DataTypes.STRING
+    }
+  }, {
+    sequelize,
+    tableName: 'departments',
+    modelName: 'Department',
+  });
+  return Department;
+};

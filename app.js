@@ -12,6 +12,7 @@ require('./utils/Passport')(passport);
 
 
 
+
 // var usersRouter = require('./routes/users');
 var indexRouter = require('./routes/index');
 // DB connection
@@ -53,14 +54,14 @@ app.use(passport.session());
 
 // connect flash
 app.use(flash());
-
-// Global variables
+// local variables
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error')
   next();
 })
+
 app.use(cookieParser());
 
 

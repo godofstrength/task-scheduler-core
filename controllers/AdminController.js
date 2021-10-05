@@ -1,22 +1,38 @@
-const User = require('../models/User');
+const User = require('../models/').User;
 const bcrypt = require('bcryptjs');
-const Department = require('../models/Department');
-const sequelize = require('../config/connection');
-const Department_User = require('../models/Department_User');
+const Department = require('../models/').Department;
+const Department_User = require('../models/').Department_User;
+const Role_User = require('../models/').Role_User;
+const {isAdmin} = require('../utils/Validator');
+const Role = require('../models/').Role;
+const Token = require('../models/').Token;
+
 
 const AdminController = {
    async index(req, res){
-        const user = await User.findOne({
-            where: {id: req.user.id}
-             })
-
-            const departments = await Department.findAll({
-                attributes: {exclude: ['createdAt', 'updatedAt']}
+        const user = await User.findOne(
+            {where: {id: req.user.id}})
+    if(req.role == 'superAdmin'){
+        const departments = await Department.findAll({
+            attributes: {exclude: ['createdAt', 'updatedAt']}
             });
-       
-    // else
-        res.render('layout/dashboard', {departments: departments});
+        res.render('layout/dashboard', {departments: departments, role: 'Super Admin'});
+    }
+    if(req.role == 'admin'){
+        const departments = await Department.findAll({
+            attributes: {exclude: ['createdAt', 'updatedAt']}
+            });
+        res.render('layout/dashboard', {departments: departments, role: 'admin'});
+    }
+    if(!req.role){
+        const departments = await Department.findAll({
+            attributes: {exclude: ['createdAt', 'updatedAt']}
+            });
+        res.render('layout/dashboard', {departments: departments, role: 'member'});
+    }
+        
     },
+
 
     createUser(req, res){
         const {firstname, lastname, email, password, password_confirm, department_id, role} = req.body;
@@ -44,6 +60,7 @@ const AdminController = {
             .then(user => {
                 if(user){
                     errors.push({msg: 'Email is already registered'})
+                    req.flash('info', errors[0].msg)
                     res.redirect('/dashboard')
                 }else{
                     const newUser = User.build({
@@ -65,6 +82,10 @@ const AdminController = {
                                 role: role
                             })
                             .then(result => {
+                                Role_User.create({
+                                    user_id: user.id,
+                                    role_id: role
+                                })
                                res.redirect('/dashboard')
                             })
                             .catch(err=> {

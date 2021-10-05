@@ -9,14 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      created_by: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        refrences: {
-          model: 'users',
-          foreignKey: 'id'
-        }
-      },
       title: {
         type: Sequelize.STRING
       },

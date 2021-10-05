@@ -1,30 +1,42 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/connection");
-const Task = require("./Task");
-
-const Assignee_Feedback = sequelize.define('Assignee_Feedback', {
-    id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER
-      },
-      task_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        refrences: {
-          model: 'tasks',
-          foreignKey: 'id'
-        }
-      },
-      comment: {
-        type: DataTypes.STRING,
-        allowNull: false
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Assignee_Feedback extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+   
+    }
+  };
+  Assignee_Feedback.init({
+    id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    task_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      refrences: {
+        model: 'tasks',
+        foreignKey: 'id'
       }
-})
-
-Assignee_Feedback.associate = () => {
-    Assignee_Feedback.belongsTo(Task)
-}
-
-module.exports = Assignee_Feedback;
+    },
+    comment: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+  }, {
+    sequelize,
+    freezeTableName: true,
+    modelName: 'Assignee_Feedback',
+  });
+  return Assignee_Feedback;
+};

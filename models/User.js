@@ -1,36 +1,52 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-const Role = require('./Role');
-const Department = require('./Department');
-const Department_User = require('./Department_User')
+'use strict';
+const {
+  Model
+} = require('sequelize');
 
-const User = sequelize.define('User', {
-    id: {
-        type : DataTypes.INTEGER(11),
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+      User.hasMany(models.Token, {
+        onDelete: 'cascade',
+        foreignKey: 'user_id'
+      })
+  }};
+  
+  User.init({
+    id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
     },
-    firstname:{
-        type: DataTypes.STRING(255),
-        allowNull: false
+    firstname: {
+      allowNull: false,
+      type: DataTypes.STRING(45)
     },
-    lastname:{
-        type: DataTypes.STRING(255),
-        allowNull: false
+    lastname: {
+      allowNull: false,
+      type: DataTypes.STRING(45)
     },
-    email : {
-        type : DataTypes.STRING,
-        allowNull : false,
-        unique: true
+    email: {
+      allowNull: false,
+      unique: true,
+      type: DataTypes.STRING(30)
     },
-    password : {
-        type: DataTypes.STRING(255),
-        allowNull: false
+    password: {
+      allowNull: false,
+      type: DataTypes.STRING
     }
-    
-})
-User.associate = () => {
-  User.belongsToMany(Department, {through: Department_User})
-}
-module.exports = User;
+
+  }, {
+    sequelize,
+    tableName: 'users',
+    modelName: 'User',
+  });
+  return User;
+};
