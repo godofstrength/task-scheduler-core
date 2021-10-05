@@ -256,3 +256,7 @@
   .sb-sidenav-light .sb-sidenav-footer {
     background-color: #e9ecef;
   }
+.card-header{
+  background-color: orange !important;
+  color: white;
+}
