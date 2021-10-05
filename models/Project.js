@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Project.init({
+    id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
     department_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

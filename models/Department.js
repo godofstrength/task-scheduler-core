@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Department.init({
+    id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
     title: {
       type: DataTypes.STRING
     },

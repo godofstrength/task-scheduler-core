@@ -1,5 +1,5 @@
-const Department = require('../models/Department');
-const Project = require('../models/Project');
+const Department = require('../models/').Department;
+const Project = require('../models/').Project;
 
 const DepartmentController = {
     //department index page

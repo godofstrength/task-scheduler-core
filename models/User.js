@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -15,13 +16,15 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'cascade',
         foreignKey: 'user_id'
       })
-
-      User.hasMany(models.Department, {
-        foreignKey: 'user_id'
-      })
-    }
-  };
+  }};
+  
   User.init({
+    id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
     firstname: {
       allowNull: false,
       type: DataTypes.STRING(45)

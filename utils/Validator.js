@@ -1,7 +1,7 @@
 const {check, body, validationResult} = require('express-validator');
-const User = require('../models/User')
-const Role_User = require('../models/Role_User');
-const Role = require('../models/Role')
+const User = require('../models/').User
+const Role_User = require('../models/').Role_User;
+const Role = require('../models/').Role
 
 
 const  createDepartmentValidation = () =>{

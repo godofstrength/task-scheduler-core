@@ -1,11 +1,11 @@
-const User = require('../models/User');
+const User = require('../models/').User;
 const bcrypt = require('bcryptjs');
-const Department = require('../models/Department');
-const Department_User = require('../models/Department_User');
-const Role_User = require('../models/Role_User');
+const Department = require('../models/').Department;
+const Department_User = require('../models/').Department_User;
+const Role_User = require('../models/').Role_User;
 const {isAdmin} = require('../utils/Validator');
-const Role = require('../models/Role');
-const Token = require('../models/Token');
+const Role = require('../models/').Role;
+const Token = require('../models/').Token;
 
 
 const AdminController = {
@@ -16,19 +16,23 @@ const AdminController = {
         const departments = await Department.findAll({
             attributes: {exclude: ['createdAt', 'updatedAt']}
             });
-        res.render('layout/dashboard', {departments: departments, role: 'SuperAdmin'});
-    }else if(req.role == 'admin'){
-
-        res.render('layout/dashboard', {departments: departments, role: 'Admin'});
-    }else{
-        res.render('layout/dashboard', {departments: departments, role: 'Member'});
+        res.render('layout/dashboard', {departments: departments, role: 'Super Admin'});
     }
-
-         
-       
-    // else
-      
+    if(req.role == 'admin'){
+        const departments = await Department.findAll({
+            attributes: {exclude: ['createdAt', 'updatedAt']}
+            });
+        res.render('layout/dashboard', {departments: departments, role: 'admin'});
+    }
+    if(!req.role){
+        const departments = await Department.findAll({
+            attributes: {exclude: ['createdAt', 'updatedAt']}
+            });
+        res.render('layout/dashboard', {departments: departments, role: 'member'});
+    }
+        
     },
+
 
     createUser(req, res){
         const {firstname, lastname, email, password, password_confirm, department_id, role} = req.body;
