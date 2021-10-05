@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'cascade',
         foreignKey: 'user_id'
       })
+      User.belongsToMany(models.Department,{
+          through: models.Department_User,
+          foreignKey: 'user_id'
+
+        })
   }};
   
   User.init({

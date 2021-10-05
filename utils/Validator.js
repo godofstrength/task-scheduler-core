@@ -39,8 +39,22 @@ const  createDepartmentValidation = () =>{
             return next()
         }
     }
+    const isSuperAdmin = async(req,res, next) => {
+        const user = await User.findOne({where: {id: req.user.id}})
+
+        const userRole = await Role_User.findOne({where: {user_id: user.id}})
+        if(userRole.role_id == 1){
+            req.role = 'superAdmin'
+            return next()
+        }
+        else{
+            req.flash('error_msg', 'unauthorized')
+            res.redirect('back')
+        }
+    }
 module.exports = {
     createDepartmentValidation,
     validate,
-    isAdmin
+    isAdmin,
+    isSuperAdmin
 }

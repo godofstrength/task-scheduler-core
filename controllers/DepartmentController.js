@@ -1,5 +1,7 @@
 const Department = require('../models/').Department;
 const Project = require('../models/').Project;
+const Department_User = require('../models/').Department_User
+
 
 const DepartmentController = {
     //department index page
@@ -29,8 +31,20 @@ const DepartmentController = {
         code: code.toUpperCase(),
     })
     .then(result => {
+        //add user that creates the department as admin
+        Department_User.create({
+            user_id: req.user.id,
+            department_id: result.id,
+            role: 1
+        })
+        .then(result => {
         req.flash({success_msg: 'department created successfully'})
         res.redirect('/dashboard');
+        })
+        .catch(err => {
+            console.log(err.msg)
+        })
+        
     })
     .catch(err => {
         req.flash({error_msg: err.msg})

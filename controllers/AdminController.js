@@ -10,25 +10,18 @@ const Token = require('../models/').Token;
 
 const AdminController = {
    async index(req, res){
-        const user = await User.findOne(
-            {where: {id: req.user.id}})
+       const user = await User.findByPk(req.user.id, {include: Department})
     if(req.role == 'superAdmin'){
         const departments = await Department.findAll({
             attributes: {exclude: ['createdAt', 'updatedAt']}
             });
-        res.render('layout/dashboard', {departments: departments, role: 'Super Admin'});
+        res.render('layout/dashboard', {departments: departments, role: 'SuperAdmin'});
     }
     if(req.role == 'admin'){
-        const departments = await Department.findAll({
-            attributes: {exclude: ['createdAt', 'updatedAt']}
-            });
-        res.render('layout/dashboard', {departments: departments, role: 'admin'});
+        res.render('layout/dashboard', {departments: user.Departments, role: 'admin'});
     }
     if(!req.role){
-        const departments = await Department.findAll({
-            attributes: {exclude: ['createdAt', 'updatedAt']}
-            });
-        res.render('layout/dashboard', {departments: departments, role: 'member'});
+        res.render('layout/dashboard', {departments: user.Departments, role: 'member'});
     }
         
     },
