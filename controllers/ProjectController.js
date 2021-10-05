@@ -6,10 +6,7 @@ const Projectcontroller = {
     index(req, res){    
         res.render('pages/project')
     },
-    // dashboard
-    dashboard2(req, res){
-        res.render('layout/pdashboard')
-    },
+   
     // create project
     createProject(req, res){
         const{title, description, client, budget} = req.body;
