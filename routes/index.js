@@ -14,6 +14,10 @@ const ProjectController = require('../controllers/ProjectController');
 router.get('/', function(req, res){
   res.render('pages/login');
 })
+
+router.get('/task',function(req, res){
+  res.render('layout/taskdashboard');
+})
 // login user
 router.post('/login', UserController.login)
 router.get('/logout', UserController.logout)
