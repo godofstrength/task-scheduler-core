@@ -7,7 +7,6 @@ const AdminController = require('../controllers/AdminController');
 const TaskController =  require('../controllers/TaskController');
 const DepartmentController = require('../controllers/DepartmentController');
 const ProjectController = require('../controllers/ProjectController');
-// const { regexp } = require('sequelize/types/lib/operators');
 
 
 /* GET home page. */
@@ -26,10 +25,6 @@ router.get('/logout', UserController.logout)
 // reset password
 router.get('/reset_password', UserController.reset);
 
-// dashboard 2
-router.get('/projectDashboard', function(req, res){
-  res.render('layout/pdashboard')
-});
 //forget password
 router.get('/forget_password', UserController.forget);
 // dashboard

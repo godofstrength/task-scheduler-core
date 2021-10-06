@@ -14,7 +14,7 @@ const DepartmentController = {
                department_id: req.params.department_id 
            }
         })
-     if(projects){
+     if(department){
        res.render('layout/pdashboard', {projects: projects, department: department})
      }else{
         res.redirect('/dashboard')
