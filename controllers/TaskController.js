@@ -1,9 +1,19 @@
-const Task = require('../models/Task')
+const Task = require('../models/').Task;
+const Project = require('../models/').Project;
 
 const TaskController = {
-    index: (req, res) => {
-        res.render('pages/tasks')
+    index: async (req, res) => {
+        const project = await Project.findOne({
+            where: {id: req.params.project_id}, 
+            attributes: ['id', 'title']
+        })
+
+        console.log(project)
+
+        const tasks = await Task.findAll({where: {project_id : project.id}})
+        res.render('layout/taskdashboard', {tasks: tasks})
     },
+
     createTaskPage: (req, res) => {
         res.render('pages/taskCreation')
     },

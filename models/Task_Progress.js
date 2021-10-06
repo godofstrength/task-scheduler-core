@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const Task = require('./Task');
 module.exports = (sequelize, DataTypes) => {
   class Task_Progress extends Model {
     /**
@@ -11,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Task_Progress.belongsTo(models.Task)
      
     }
   };

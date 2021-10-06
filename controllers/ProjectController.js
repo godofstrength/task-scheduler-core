@@ -1,17 +1,16 @@
-const Project = require('../models/Project');
-const Task = require('../models/Task');
+const Project = require('../models/').Project;
+const Task = require('../models/').Task;
 
 const Projectcontroller = {
     // index page
-    index(req, res){    
-        res.render('pages/project')
-    },
+
    
     // create project
     createProject(req, res){
-        const{title, description, client, budget} = req.body;
+        console.log('test');
+    const{title, description, client, budget} = req.body;
       const newProject = Project.build({
-            department_id : req.params.id,
+            department_id : req.params.department_id,
             title: title,
             description: description,
             client: client,
@@ -20,10 +19,12 @@ const Projectcontroller = {
         })
     newProject.save()
     .then(project => {
-        res.render('pages/project', {success_msg: 'project created'})
+        req.flash('success_msg', 'project created successfully')
+        res.redirect('back')
     })
     .catch(err => {
-        res.render('pages/project', {error_msg: 'unable to create project'})
+        req.flash('error_msg', 'An error has occoured')
+        res.redirect('back')
     })
 
     }

@@ -25,6 +25,9 @@ module.exports = {
       client: {
         type: Sequelize.STRING,
       },
+      percentage: {
+        type: Sequelize.FLOAT,
+      },
       budget: {
         type: Sequelize.DECIMAL(15,2)
       },

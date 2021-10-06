@@ -50,26 +50,26 @@
 
 
         <div class="container mt-5" id="Projectform">
-            <form class="row g-3">
+            <form action="/<%= department.id %>/createProject" method="POST" class="row g-3">
                 <div class="col-md-6">
-                    <label for="inputProject" class="form-label">Project Name</label>
-                    <input type="text" class="form-control" id="inputProject">
+                    <label for="inputProject" class="form-label">Project Title</label>
+                    <input type="text" name="project_title" class="form-control" id="inputProject">
                 </div>
                 <div class="col-md-6">
                     <label for="inputClient" class="form-label">Client</label>
-                    <input type="text" class="form-control" id="inputClient">
+                    <input type="text" name="client" class="form-control" id="inputClient">
                 </div>
                 <div class="col-12">
                     <label for="inputDescription" class="form-label">Project Description</label>
-                    <input type="text" class="form-control" id="inputDescription"
-                        placeholder="A software that aims at...">
+                    <input type="text" name="description" class="form-control" id="inputDescription"
+                        placeholder="Briefly describe the project">
                 </div>
 
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <label for="inputManager" class="form-label">Project Manager</label>
                     <input type="text" class="form-control" id="inputManager">
-                </div>
-                <div class="col-md-4">
+                </div> -->
+                <!-- <div class="col-md-4">
                     <label for="inputCategory" class="form-label">Category</label>
                     <select id="inputCategory" class="form-select">
                         <option selected>Choose...</option>
@@ -80,8 +80,8 @@
                         <option>Network Infrastructure</option>
                         <option>Security Solutions</option>
                     </select>
-                </div>
-                <div class="col-md-2">
+                </div> -->
+                <!-- <div class="col-md-2">
                     <label for="inputDeptCode" class="form-label">Department Code</label>
                     <select id="inputDeptCode" class="form-select">
                         <option selected>Choose...</option>
@@ -92,14 +92,10 @@
                         <option>Network Infrastructure</option>
                         <option>Security Solutions</option>
                     </select>
-                </div>
+                </div> -->
                 <div class="col-md-2">
                     <label for="inputZip" class="form-label">Budget</label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="col-md-3">
-                    <label for="inputProjectId" class="form-label">Project Id</label>
-                    <input type="text" class="form-control" id="inputProjectId">
+                    <input type="text" name="budget" class="form-control" id="inputZip">
                 </div>
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">Submit</button>

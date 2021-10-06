@@ -1,20 +1,20 @@
 const Department = require('../models/').Department;
 const Project = require('../models/').Project;
-const Department_User = require('../models/').Department_User
+const Department_User = require('../models/').Department_User;
+const Task = require('../models/').Task;
 
 
 const DepartmentController = {
     //department index page
    async index(req, res){
-       const department = await Department.findOne({where: {
-           id: req.params.department_id
-       }})
-       const projects = await Project.findAll({
-           where: {
-               department_id: req.params.department_id 
-           }
-        })
+       const department = await Department.findOne(
+           {where: {id: req.params.department_id}}
+        )
+        // if we have a department find the projects 
      if(department){
+        const projects = await Project.findAll(
+            {where: {department_id: department.id }},
+             {include: [Task]})
        res.render('layout/pdashboard', {projects: projects, department: department})
      }else{
         res.redirect('/dashboard')
