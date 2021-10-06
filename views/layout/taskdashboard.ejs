@@ -22,6 +22,7 @@
             srcset="https://interranetworks.ng/wp-content/uploads/2020/06/Interra-Logo-08-08-e1593411073312.png 203w, https://interranetworks.ng/wp-content/uploads/2020/06/Interra-Logo-08-08-e1593411073312.png 203w"
             width="153" alt="Interra Networks"></a>
         <ul class="navbar-nav">
+          
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
               <i class="fas fa-user-plus"></i>
@@ -88,7 +89,58 @@
             </div>
              <!--end of modal section -->
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#Backdrop" href="#">
+              <i class="far fa-file"></i>
+            </a>
+            <div class="modal fade" id="Backdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Create a task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="#" method="POST">
+                     
+                      <div class="mb-3">
+                        <label for="task_title" class="form-label">Task title</label>
+                        <input type="text" name="task_title" class="form-control" id="task_title" placeholder="John" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="task_des" class="form-label">Task Description</label>
+                        <input type="text" name="task_des" class="form-control" id="task_des" placeholder="John" required>
+                      </div>
+                      <div class=" mb-3">
+                       <label for="department" class="form-label">Department</label>
+                       <select class="form-select" id="department" name="department_id">
+                         <option selected></option>
+                        
+                         <option > </option>
+                        
+                       </select>
+                     </div>
+                     <div class="mb-3">
+                      <label for="department_member" class="form-label">Department Members</label>
+                      <div class="form-check" id="department_member">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          John Doe
+                        </label>
+                      </div>
+                     </div>
+                     
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create task</button>
+                      </div>
+                   </form>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </li>
           <li class=" dropdown nav-item">
             <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="far fa-bell position-relative">
@@ -192,25 +244,76 @@
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid">
-                <div class="row">
-                   <div class="col-sm-3">
-                    <div class="card  bg-light mb-3" style="max-width: 540px;    box-shadow: 0 15px 30px 0 rgb(0 0 0 / 10%); border: none; ">
+                  <div class="row">
+                    <div class="col-sm-6 ">
+                      <div class="card mb-3" style="box-shadow: 0 15px 30px 0 rgb(0 0 0 / 10%); border: none;">
                         <div class="card-header status">Task Title</div>
                         <div class="card-body">
                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <p class="card-text">Task status: Ongoing</p>
-                          <p class="card-text"><div class="form-check">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Mark on completion
-                            </label>
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                          </div>
-                          </p>
+                            <p class="card-text">Task status: Ongoing</p>
+                            <p class="card-text">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Mark on completion
+                                </label>
+                              </div>
+                            </p>
                         </div>
                       </div>
-                   </div>
-                </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="card mb-3"style="box-shadow: 0 15px 30px 0 rgb(0 0 0 / 10%); border: none;">
+                      <div class="card-header status">Task Title</div>
+                      <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <p class="card-text">Task status: Ongoing</p>
+                          <p class="card-text">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              <label class="form-check-label" for="flexCheckDefault">
+                                Mark on completion
+                              </label>
+                            </div>
+                          </p>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="card mb-3"style="box-shadow: 0 15px 30px 0 rgb(0 0 0 / 10%); border: none;">
+                      <div class="card-header status">Task Title</div>
+                      <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <p class="card-text">Task status: Ongoing</p>
+                          <p class="card-text">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              <label class="form-check-label" for="flexCheckDefault">
+                                Mark on completion
+                              </label>
+                            </div>
+                          </p>
+                      </div>
+                    </div>
+                    
           </div>
+          <div class="col-sm-6">
+            <div class="card mb-3"style="box-shadow: 0 15px 30px 0 rgb(0 0 0 / 10%); border: none;">
+              <div class="card-header status">Task Title</div>
+              <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p class="card-text">Task status: Ongoing</p>
+                  <p class="card-text">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Mark on completion
+                      </label>
+                    </div>
+                  </p>
+              </div>
+            </div>
         </main>
       </div>
    </div>
