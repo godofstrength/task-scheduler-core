@@ -11,7 +11,10 @@
     background-color: white;
     min-height: 100vh;
   }
-
+   a{
+     text-decoration: none;
+     color: #007bff;
+   }
   i{
     font-size: 20px;
   }
@@ -259,4 +262,14 @@
 .card-header{
   background-color: orange !important;
   color: white;
+}
+
+.card-link{
+  text-decoration: none;
+  color: #007bff;
+}
+
+.breadcrumb-item a{
+  text-decoration: none;
+  color: #007bff;
 }

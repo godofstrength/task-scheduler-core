@@ -7,7 +7,7 @@ const AdminController = require('../controllers/AdminController');
 const TaskController =  require('../controllers/TaskController');
 const DepartmentController = require('../controllers/DepartmentController');
 const ProjectController = require('../controllers/ProjectController');
-const { regexp } = require('sequelize/types/lib/operators');
+// const { regexp } = require('sequelize/types/lib/operators');
 
 
 /* GET home page. */
