@@ -46,12 +46,6 @@ app.use(session({
   resave : false,
   saveUninitialized : false,
 }));
-
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-
 // connect flash
 app.use(flash());
 // local variables
@@ -61,6 +55,13 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error')
   next();
 })
+
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 app.use(cookieParser());
 

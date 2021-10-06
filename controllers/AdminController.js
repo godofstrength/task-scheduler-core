@@ -18,7 +18,11 @@ const AdminController = {
         res.render('layout/dashboard', {departments: departments, role: 'SuperAdmin'});
     }
     if(req.role == 'admin'){
-        res.render('layout/dashboard', {departments: user.Departments, role: 'admin'});
+        if(!user.Departments){
+            res.redirect('/')
+        }else{
+            res.render('layout/dashboard', {departments: user.Departments, role: 'admin'});
+        }   
     }
     if(!req.role){
         res.render('layout/dashboard', {departments: user.Departments, role: 'member'});

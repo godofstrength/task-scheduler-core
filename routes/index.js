@@ -36,7 +36,8 @@ router.post('/admin/create-department', ensureAuthenticated ,createDepartmentVal
 
 // project routes
 router.get('/:department_id/projects',ensureAuthenticated, DepartmentController.index)
-router.get('/:department_id/create-project', ProjectController.createProject);
+router.get('/:department_id/create-project', ProjectController.index);
+router.post('/:department/createProject', ProjectController.createProject)
 // task routes 
 router.get('/:project_id/tasks', TaskController.index)
 router.get('/:project_id/create-task', TaskController.createTaskPage);

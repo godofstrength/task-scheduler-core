@@ -4,7 +4,7 @@ const Task = require('../models/Task');
 const Projectcontroller = {
     // index page
     index(req, res){    
-        res.render('pages/project')
+        res.render('pages/newProject')
     },
    
     // create project
@@ -20,10 +20,12 @@ const Projectcontroller = {
         })
     newProject.save()
     .then(project => {
-        res.render('pages/project', {success_msg: 'project created'})
+        req.flash('success_msg', 'project created successfully')
+        res.redirect('back')
     })
     .catch(err => {
-        res.render('pages/project', {error_msg: 'unable to create project'})
+        req.flash('error_msg', 'An error has occoured')
+        res.redirect('back')
     })
 
     }
