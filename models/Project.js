@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      Project.hasMany(models.Task, {foreignKey: 'project_id'})
     }
   };
   Project.init({
@@ -38,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     budget: {
       type: DataTypes.DECIMAL(15,2)
+    },
+    percentage: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0.00
     },
     created_by:{
       type: DataTypes.INTEGER

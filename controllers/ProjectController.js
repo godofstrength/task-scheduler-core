@@ -1,17 +1,16 @@
-const Project = require('../models/Project');
-const Task = require('../models/Task');
+const Project = require('../models/').Project;
+const Task = require('../models/').Task;
 
 const Projectcontroller = {
     // index page
-    index(req, res){    
-        res.render('pages/newProject')
-    },
+
    
     // create project
     createProject(req, res){
-        const{title, description, client, budget} = req.body;
+        console.log('test');
+    const{title, description, client, budget} = req.body;
       const newProject = Project.build({
-            department_id : req.params.id,
+            department_id : req.params.department_id,
             title: title,
             description: description,
             client: client,

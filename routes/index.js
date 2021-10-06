@@ -8,8 +8,6 @@ const TaskController =  require('../controllers/TaskController');
 const DepartmentController = require('../controllers/DepartmentController');
 const ProjectController = require('../controllers/ProjectController');
 
-
-/* GET home page. */
 // render login form
 router.get('/', function(req, res){
   res.render('pages/login');
@@ -36,12 +34,11 @@ router.post('/admin/create-department', ensureAuthenticated ,createDepartmentVal
 
 // project routes
 router.get('/:department_id/projects',ensureAuthenticated, DepartmentController.index)
-router.get('/:department_id/create-project', ProjectController.index);
-router.post('/:department/createProject', ProjectController.createProject)
+router.post('/:department_id/createProject', ensureAuthenticated, ProjectController.createProject)
 // task routes 
-router.get('/:project_id/tasks', TaskController.index)
-router.get('/:project_id/create-task', TaskController.createTaskPage);
-router.post('/:project_id/create-task', TaskController.createTask)
+router.get('/:project_id/tasks', ensureAuthenticated, TaskController.index)
+router.get('/:project_id/create-task', ensureAuthenticated, TaskController.createTaskPage);
+router.post('/:project_id/create-task', ensureAuthenticated, TaskController.createTask)
 
 
 module.exports = router;
