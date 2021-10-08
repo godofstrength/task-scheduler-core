@@ -49,18 +49,9 @@ module.exports = (sequelize, DataTypes) => {
     assignedTo: {
       type: DataTypes.STRING(255)
     },
-    start_date: {
-      type: DataTypes.DATE
-    },
-    end_date: {
-      type: DataTypes.DATE
-    },
     status: {
-      type: DataTypes.INTEGER
-    },
-    priority:{
-      type: DataTypes.INTEGER
-    },
+      type: DataTypes.STRING
+    }
   }, {
     sequelize,
     tableName: 'tasks',

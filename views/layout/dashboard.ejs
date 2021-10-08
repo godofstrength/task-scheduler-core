@@ -30,20 +30,17 @@
 
           <li class=" dropdown nav-item">
             <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="far fa-bell position-relative">
+              <i  id="notification" class="far fa-bell position-relative">
                 <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                  <span class="visually-hidden">New alerts</span>
+                  <span class="visually-hidden">Notifications</span>
                 </span>
               </i>
               
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
+          
+            <div id="statusText" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+             
+            </div>
           </li>
           <li class=" dropdown nav-item">
             <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -265,5 +262,27 @@
     <script src="./js/bootstrap.min.js"></script>
     <script src="./jquery/jquery.js"></script>
     <script src="./javascripts/scripts.js"></script>
+    <script>
+      $(document).ready(function (){
+        $('#notification').on('click', function(){
+        var spinner = `<div class="spinner-border" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>`
+        var statusText = $('#statusText')
+        statusText.html(spinner)
+        $.ajax({
+          method : 'GET',
+          url: '/notifications',
+          success : (data) => {
+            console.log(data.message)
+          },
+          error : (data) => {
+            console.log(data)
+          }
+
+        })
+        })
+      })
+    </script>
   </body>
 </html>

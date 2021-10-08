@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsToMany(models.Department,{
           through: models.Department_User,
           foreignKey: 'user_id'
-
         })
       User.hasMany(models.Notification, {foreignKey: 'user_id'})
   }};

@@ -7,6 +7,7 @@ const AdminController = require('../controllers/AdminController');
 const TaskController =  require('../controllers/TaskController');
 const DepartmentController = require('../controllers/DepartmentController');
 const ProjectController = require('../controllers/ProjectController');
+const NotificationController = require('../controllers/NotificationController');
 
 // render login form
 router.get('/', function(req, res){
@@ -37,8 +38,10 @@ router.get('/:department_id/projects',ensureAuthenticated, DepartmentController.
 router.post('/:department_id/createProject', ensureAuthenticated, ProjectController.createProject)
 // task routes 
 router.get('/:project_id/tasks', ensureAuthenticated, TaskController.index)
-router.get('/:project_id/create-task', ensureAuthenticated, TaskController.createTaskPage);
-router.post('/:project_id/create-task', ensureAuthenticated, TaskController.createTask)
-
-
+router.post('/project/create-task', ensureAuthenticated, TaskController.createTask)
+// testing
+router.get('/email', function(req,res){
+  res.render('emails/newtask.ejs')
+})
+router.get('/notifications', ensureAuthenticated,NotificationController.loadNotifications)
 module.exports = router;

@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
     }
+    
   };
   Department_User.init({
     id:{
