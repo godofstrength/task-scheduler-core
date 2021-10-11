@@ -16,6 +16,10 @@ module.exports = {
           foreignKey: 'id'
         }
       },
+      created_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       title: {
         type: Sequelize.STRING
       },

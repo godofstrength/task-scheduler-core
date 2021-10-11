@@ -15,17 +15,17 @@ const AdminController = {
         const departments = await Department.findAll({
             attributes: {exclude: ['createdAt', 'updatedAt']}
             });
-        res.render('layout/dashboard', {departments: departments, role: 'SuperAdmin'});
+        res.render('layout/dashboard', {departments: departments, role: 'SuperAdmin', user:user});
     }
     if(req.role == 'admin'){
         if(!user.Departments){
             res.redirect('/')
         }else{
-            res.render('layout/dashboard', {departments: user.Departments, role: 'admin'});
+            res.render('layout/dashboard', {departments: user.Departments, role: 'admin', user:user});
         }   
     }
     if(!req.role){
-        res.render('layout/dashboard', {departments: user.Departments, role: 'member'});
+        res.render('layout/dashboard', {departments: user.Departments, role: 'member', user:user});
     }
         
     },

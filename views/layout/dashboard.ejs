@@ -10,6 +10,19 @@
       body{
         background-color:#fff;
       }
+      .user{
+        text-transform: capitalize;
+      }
+      #statusText {
+        width: 220px;
+      }
+      #statusText > li{
+        text-transform: capitalize;
+        border-bottom: 1px solid silver;
+      }
+      #statusText > li:hover{
+        background-color: aliceblue;
+      }
     </style>
     <title>Dashboard</title>
   </head>
@@ -47,9 +60,7 @@
               <i class="far fa-user-circle"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" href="#">Change Password</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
             </ul>
@@ -70,23 +81,16 @@
                           Dashboard
                       </a>
                       <div class="sb-sidenav-menu-heading">Interface</div>
-                      <a class="nav-link collapsed" href="/admin/createUser" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                          <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                          Create user
-                          <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                      </a>
-                      <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                          <nav class="sb-sidenav-menu-nested nav">
-                              <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                              <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                          </nav>
-                      </div>
-                      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                          <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                          Pages
-                          <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                      </a>
-                      <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                   
+                    <a class="nav-link collapsed user" href="/admin/createUser" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                      <div class="sb-nav-link-icon"><i class="fas fa-user-circle"></i></div>
+                      <%= `${user.firstname} ${user.lastname}` %> 
+                    </a>
+                    <a class="nav-link collapsed" href="/admin/createUser" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                      <div class="sb-nav-link-icon"><i class="fas fa-tasks"></i></div>
+                      Your tasks
+                  </a>
+                      <!-- <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                           <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                                   Authentication
@@ -111,17 +115,12 @@
                                   </nav>
                               </div>
                           </nav>
-                      </div>
-                      <div class="sb-sidenav-menu-heading">Addons</div>
-                      <a class="nav-link" href="#">
-                          <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                          Charts
-                      </a>
-                      
+                      </div> -->
+                     
                   </div>
               </div>
               <div class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
+                <div class="small">Role:</div>
                 <%= role %> 
             </div>
           </nav>
@@ -136,7 +135,7 @@
                       <div class="card mb-3 bg-light" style="max-width: 540px; border:none;     box-shadow: 0 15px 30px 0 rgb(0 0 0 / 10%); border: none; ">
                         <div class="row g-0">
                           <div class="col-md-4">
-                            <img src="..." class="img-fluid rounded-start" alt="...">
+                            <img src="" class="img-fluid rounded-start" alt="...">
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
@@ -265,21 +264,29 @@
     <script>
       $(document).ready(function (){
         $('#notification').on('click', function(){
-        var spinner = `<div class="spinner-border" role="status">
+        var spinner = `<div  class="spinner-border text-center" role="status">
                       <span class="sr-only">Loading...</span>
                     </div>`
         var statusText = $('#statusText')
+        var notifications = '' 
         statusText.html(spinner)
         $.ajax({
           method : 'GET',
           url: '/notifications',
           success : (data) => {
-            console.log(data.message)
+            if(jQuery.isEmptyObject(data.message)){
+              statusText.html('You have no notifications yet')
+            }else{ 
+              data.message.forEach(message => {
+              notifications += `<li id=${message.id}>${message.title}<li>`
+              });
+              statusText.html(notifications)
+            }
           },
           error : (data) => {
-            console.log(data)
+            statusText.html(data.failure)
+            console.log(data.failure)
           }
-
         })
         })
       })

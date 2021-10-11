@@ -4,26 +4,33 @@ const Notification = require('../models/').Notification
 
 const NotificationController = {
     loadNotifications : async(req, res) => {
-        const notifications = Notification.findAll({
+        const notifications = await Notification.findAll({
             where: {user_id: req.user.id},
             attributes: ['id', 'title'],
-            order: ['createdAt', 'DESC']
+            order: [
+                ['createdAt', 'DESC']
+            ],
+            limit: 8
         })
-        if(notifications != null){
+        
+
+        if(notifications){
             res.json({
                 message : notifications
             })
         }else{
             res.json({
-                error: "No notifications yet"
+                failure : "Unable to load notifications"
             })
         }
     },
     index : async(req, res) => {
-        const notifications = Notification.findAll({
+        const notifications = await Notification.findAll({
             where: {user_id: req.user.id},
             attributes: ['id', 'title'],
-            order: ['createdAt', 'DESC']
+            order: [
+                ['createdAt', 'DESC']
+            ]
         })
     }
 

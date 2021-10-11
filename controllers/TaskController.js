@@ -24,7 +24,7 @@ const TaskController = {
         const users = department.Users
         // find all tasks belonging to the project
         const tasks = await Task.findAll({ where: { project_id: project.id } })
-        res.render('layout/taskdashboard', { tasks: tasks, project: project, users: users, department: department })
+        res.render('layout/taskdashboard', {tasks: tasks, project: project, users: users, department: department})
     },
 
 
@@ -54,7 +54,8 @@ const TaskController = {
 
                     await Notification.create({
                         user_id: assignedTo,
-                        title: 'You have a new task',
+                        title: `New task from ${req.user.firstname}`,
+                        created_by : req.user.id,
                         read: false,
                     }, { transaction: t })
 
