@@ -33,7 +33,8 @@ module.exports = {
         allowNull: false
       },
       assignedTo: {
-        type: Sequelize.STRING(255)
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       end_date: {
         type: Sequelize.DATE,

@@ -48,7 +48,7 @@ const TaskController = {
                         project_id: parseInt(project_id),
                         title: title,
                         description: description,
-                        asssignedTo: parseInt(assignedTo),
+                        assignedTo: parseInt(assignedTo),
                         status: 'pending'
                     }, { transaction: t })
 
@@ -109,6 +109,40 @@ const TaskController = {
         }
 
     },
+
+    myTasks: async(req, res) => {
+        const myTasks = await Task.findAll({
+            where: {assignedTo: req.user.id},
+            attributes: ['id', 'title', 'description', 'status']
+        })
+
+        res.render('layout/yourtasks', {tasks: myTasks})
+    },
+
+    startTask: (req, res) => {
+        let updateValues = {status: 'ongoing'}
+        Task.update(updateValues, {where: {id: req.params.task_id}})
+        .then(result => {
+            req.flash('success_msg', 'success')
+            res.redirect('back')
+        })
+        .catch(error =>{
+            req.flash('error_msg', error.msg)
+            res.redirect('back')
+        })
+    },
+   completeTask: (req, res) => {
+        let updateValues = {status: 'completed'}
+        Task.update(updateValues, {where: {id: req.params.task_id}})
+        .then(result => {
+            req.flash('success_msg', 'success')
+            res.redirect('back')
+        })
+        .catch(error =>{
+            req.flash('error_msg', error.msg)
+            res.redirect('back')
+        })
+    }
 }
 
 module.exports = TaskController;

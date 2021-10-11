@@ -10,17 +10,6 @@
       body{
         background-color:#fff;
       }
-      .pending{
-        background-color : lightblue;
-      
-      }
-      .ongoing{
-  background-color: rgb(212, 212, 27);
-
-}
-.completed{
-  background-color : lightgreen;
-}
     </style>
     <title>Dashboard</title>
   </head>
@@ -37,47 +26,6 @@
             <a class="nav-link" data-bs-toggle="modal" data-bs-target="#Backdrop" href="#">
               <i class="far fa-file"></i>
             </a>
-            <div class="modal fade" id="Backdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Create a task</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form action="/project/create-task" method="POST">
-                     
-                      <div class="mb-3">
-                        <label for="task_title" class="form-label">Task title</label>
-                        <input type="text" name="title" class="form-control" id="task_title" placeholder="John" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="task_des" class="form-label">Task Description</label>
-                        <input type="text" name="description" class="form-control" id="task_des" placeholder="John" required>
-                      </div>
-                     <div class="mb-3">
-                      <label for="department_member" class="form-label">Assign To</label>
-                      <select class="form-select" aria-label="Default select example" name="assignedTo" required>
-                       <% users.forEach(user => { %>
-                        <option value="<%=user.id%>"><%= user.firstname%> </option>
-                       <% }) %>
-                      </select>
-                     </div>
-                     <input type="hidden" name="project_id" value="<%=project.id %>">
-                     <div class="mb-3">
-                      <label for="deadline" class="form-label">Deadline : <small>optional</small></label>
-                      <input type="date" name="deadline" class="form-control" id="deadline" >
-                    </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                      </div>
-                   </form>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
           </li>
           <li class=" dropdown nav-item">
             <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -184,9 +132,7 @@
           <div class="container-fluid">
             <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><%= department.code %> </li>
-                <li class="breadcrumb-item active" aria-current="page"><%= project.title %> </li>
+                <li class="breadcrumb-item"><a href="/dashboard">Your tasks</a></li>     
               </ol>
             </nav>
                   <div class="row">
@@ -194,15 +140,15 @@
                       <% tasks.forEach(task => { %>
                         <div class="col-sm-6 ">
                           <div class="card mb-3" style="box-shadow: 0 15px 30px 0 rgb(0 0 0 / 10%); border: none;">
-                            <div class="card-header <%=task.status%>"><%= task.title %> </div>
+                            <div class="card-header <%= task.status %>"><%= task.title %> </div>
                             <div class="card-body">
                               <p class="card-text"><%= task.description%> </p>
                                 <p class="card-text">Task status: <%= task.status %> </p>
                                 <p class="card-text">
                                   <% if (task.status == 'pending') { %>
                                     <div class="form-check">
-                                      <form action="/<%= task.id %>/start-task" method="post">
-                                        <input class="form-check-input" id="startTask" type="checkbox">
+                                      <form action="/<%= task.id %>/start " method="post">
+                                        <input class="form-check-input"  name="complete_task" type="checkbox" value="" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                           Start Task
                                         </label>
@@ -212,8 +158,8 @@
                                   <% } %>
                                   <% if (task.status == 'ongoing') { %>
                                     <div class="form-check">
-                                      <form action="/<%=task.id %>/complete-task" method="post">
-                                        <input class="form-check-input"   id="completeTask" type="checkbox" value="" >
+                                      <form action="/<%=task.id %>/complete " method="post">
+                                        <input class="form-check-input"  name="complete_task" type="checkbox" value="" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                           complete Task
                                         </label>
@@ -244,7 +190,6 @@
                   
                    
              </div>
-           
           </div>
         </main>
       </div>
@@ -253,25 +198,5 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../jquery/jquery.js"></script>
     <script src="../javascripts/scripts.js"></script>
-
-    <script>
-      $(document).ready(function(){
-        var startTask = $('#startTask')
-        var completeTask = $('#completeTask')
-
-        completeTask.on('change', function(){
-        
-            completeTask.parent().submit()
-            console.log('test')
-        });
-
-        startTask.on('change', function(){
-            startTask.parent().submit()
-            console.log('test')
-        })
-
-      
-      })
-    </script>
   </body>
 </html>

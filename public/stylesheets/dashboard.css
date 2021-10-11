@@ -260,8 +260,7 @@
     background-color: #e9ecef;
   }
 .card-header{
-  background-color: orange !important;
-  color: white;
+  text-transform: capitalize;
 }
 
 .card-link{
