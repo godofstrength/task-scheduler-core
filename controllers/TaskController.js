@@ -22,9 +22,29 @@ const TaskController = {
             }]
         });
         const users = department.Users
+          // query filters
+          
+          let filter = (req.query.status) ? req.query.status : null;
+          let limit = 12
         // find all tasks belonging to the project
-        const tasks = await Task.findAll({ where: { project_id: project.id } })
+        if(filter != null){
+            const tasks = await Task.findAll({ 
+                where: { 
+                    project_id: project.id,
+                    status: filter
+                },
+                limit : limit           
+        })
         res.render('layout/taskdashboard', {tasks: tasks, project: project, users: users, department: department})
+        }else{
+            const tasks = await Task.findAll({ 
+                where: {project_id: project.id},
+                limit : limit
+        })
+        res.render('layout/taskdashboard', {tasks: tasks, project: project, users: users, department: department})
+        }
+
+       
     },
 
 
