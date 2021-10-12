@@ -5,6 +5,7 @@ const Department = require('../models').Department
 const User = require('../models/').User;
 const Notification = require('../models/').Notification
 const sequelize = require('../config/connection');
+const Assignee_Feedback = require('../models').Assignee_Feedback
 const sendMail = require('../utils/SendMail')
 
 const TaskController = {
@@ -131,12 +132,26 @@ const TaskController = {
     },
 
     myTasks: async(req, res) => {
-        const myTasks = await Task.findAll({
-            where: {assignedTo: req.user.id},
-            attributes: ['id', 'title', 'description', 'status']
-        })
-
-        res.render('layout/yourtasks', {tasks: myTasks})
+        let filter = (req.query.status)? req.query.status : null
+        if(filter != null){
+            const myTasks = await Task.findAll({
+                where: {
+                    assignedTo: req.user.id, 
+                    status: filter
+                },
+                attributes: ['id', 'title', 'description', 'status'],
+            })
+    
+            res.render('layout/yourtasks', {tasks: myTasks})
+        }else{
+            const myTasks = await Task.findAll({
+                where: {assignedTo: req.user.id},
+                attributes: ['id', 'title', 'description', 'status']
+            })
+    
+            res.render('layout/yourtasks', {tasks: myTasks})
+        }
+      
     },
 
     startTask: (req, res) => {
@@ -162,6 +177,29 @@ const TaskController = {
             req.flash('error_msg', error.msg)
             res.redirect('back')
         })
+    },
+
+    feedBack: async(req, res) => {
+        const feedback = req.body.feedback
+        console.log(feedback)
+        if(!feedback){
+            res.status(400).json({
+                error: 'empty fields'
+            })
+        }
+        const result = await Assignee_Feedback.create({
+            task_id : req.params.task_id,
+            comment: feedback
+        })
+        if(result){
+            res.json({
+                message: 'success'
+            })
+        }else{
+            res.json({
+                error: 'internal server error'
+            })
+        }
     }
 }
 

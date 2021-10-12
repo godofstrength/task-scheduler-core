@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    freezeTableName: true,
+    tableName: 'assignee-feedbacks',
     modelName: 'Assignee_Feedback',
   });
   return Assignee_Feedback;

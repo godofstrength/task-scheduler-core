@@ -10,6 +10,17 @@
       body{
         background-color:#fff;
       }
+      .pending{
+        background-color : lightblue;
+
+      }
+      .ongoing{
+      background-color: rgb(212, 212, 27);
+
+      }
+      .completed{
+      background-color : lightgreen;
+      }
     </style>
     <title>Dashboard</title>
   </head>
@@ -22,11 +33,6 @@
             srcset="https://interranetworks.ng/wp-content/uploads/2020/06/Interra-Logo-08-08-e1593411073312.png 203w, https://interranetworks.ng/wp-content/uploads/2020/06/Interra-Logo-08-08-e1593411073312.png 203w"
             width="153" alt="Interra Networks"></a>
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#Backdrop" href="#">
-              <i class="far fa-file"></i>
-            </a>
-          </li>
           <li class=" dropdown nav-item">
             <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="far fa-bell position-relative">
@@ -70,59 +76,20 @@
                       <a class="nav-link" href="/dashboard">
                           <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                           Dashboard
+                      </a>             
+                      <div class="sb-sidenav-menu-heading">Filters</div>
+                      <a class="nav-link" href="/your-tasks?status=completed">
+                          <div class="sb-nav-link-icon"><i class="fas fa-check"></i></div>
+                          Completed
                       </a>
-                      <div class="sb-sidenav-menu-heading">Interface</div>
-                      <a class="nav-link collapsed" href="/admin/createUser" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                          <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                          Create user
-                          <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                      <a class="nav-link" href="/your-tasks?status=ongoing">
+                          <div class="sb-nav-link-icon"><i class="far fa-hourglass"></i></div>
+                          Ongoing
                       </a>
-                      <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                          <nav class="sb-sidenav-menu-nested nav">
-                              <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                              <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                          </nav>
-                      </div>
-                      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                          <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                          Pages
-                          <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                      </a>
-                      <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                          <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                  Authentication
-                                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                              </a>
-                              <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                  <nav class="sb-sidenav-menu-nested nav">
-                                      <a class="nav-link" href="login.html">Login</a>
-                                      <a class="nav-link" href="register.html">Register</a>
-                                      <a class="nav-link" href="password.html">Forgot Password</a>
-                                  </nav>
-                              </div>
-                              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                  Error
-                                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                              </a>
-                              <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                  <nav class="sb-sidenav-menu-nested nav">
-                                      <a class="nav-link" href="401.html">401 Page</a>
-                                      <a class="nav-link" href="404.html">404 Page</a>
-                                      <a class="nav-link" href="500.html">500 Page</a>
-                                  </nav>
-                              </div>
-                          </nav>
-                      </div>
-                      <div class="sb-sidenav-menu-heading">Addons</div>
-                      <a class="nav-link" href="charts.html">
-                          <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                          Charts
-                      </a>
-                      <a class="nav-link" href="tables.html">
-                          <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                          Tables
-                      </a>
+                      <a class="nav-link" href="/your-tasks?status=pending">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Pending
+                    </a>
                   </div>
               </div>
           </nav>
@@ -136,19 +103,46 @@
               </ol>
             </nav>
                   <div class="row">
+                    <div id="status"></div>
                     <% if (tasks.length > 0) { %>
                       <% tasks.forEach(task => { %>
                         <div class="col-sm-6 ">
                           <div class="card mb-3" style="box-shadow: 0 15px 30px 0 rgb(0 0 0 / 10%); border: none;">
-                            <div class="card-header <%= task.status %>"><%= task.title %> </div>
+                            <div class="card-header <%= task.status %>"><%= task.title %></div>
                             <div class="card-body">
                               <p class="card-text"><%= task.description%> </p>
-                                <p class="card-text">Task status: <%= task.status %> </p>
+                                <p class="card-text">Task status: <%= task.status %>
+                                   <span style="float: right;"><a data-bs-toggle="modal" data-bs-target="#Backdrop" href="#" class="btn btn-primary btn-sm">comment</a></span>
+                                   <!-- comment modal -->
+                                   <div class="modal fade" id="Backdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="staticBackdropLabel">Leave a Comment</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form action="/<%=task.id%>/feedback" id="feedbackForm" method="POST">
+                                            <div class="mb-3">
+                                              <label for="textarea" class="form-label">Your achievements | Problem encountered:</label>
+                                              <textarea id="textArea" name="feedback" rows="4" cols="60" required></textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                                            </div>
+                                         </form>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                  </p>
                                 <p class="card-text">
                                   <% if (task.status == 'pending') { %>
                                     <div class="form-check">
-                                      <form action="/<%= task.id %>/start " method="post">
-                                        <input class="form-check-input"  name="complete_task" type="checkbox" value="" id="flexCheckDefault">
+                                      <form action="/<%= task.id %>/start-task" method="post">
+                                        <input class="form-check-input" id="startTask"  name="complete_task" type="checkbox" value="" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                           Start Task
                                         </label>
@@ -158,8 +152,8 @@
                                   <% } %>
                                   <% if (task.status == 'ongoing') { %>
                                     <div class="form-check">
-                                      <form action="/<%=task.id %>/complete " method="post">
-                                        <input class="form-check-input"  name="complete_task" type="checkbox" value="" id="flexCheckDefault">
+                                      <form action="/<%=task.id %>/complete-task" method="post">
+                                        <input class="form-check-input" id='completeTask'  name="complete_task" type="checkbox" value="" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                           complete Task
                                         </label>
@@ -198,5 +192,47 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../jquery/jquery.js"></script>
     <script src="../javascripts/scripts.js"></script>
+
+    <script>
+        $(document).ready(function(){
+        var startTask = $('#startTask')
+        var completeTask = $('#completeTask')
+
+        completeTask.on('change', function(){
+            completeTask.parent().submit()
+        });
+
+        startTask.on('change', function(){
+            startTask.parent().submit()
+        })
+// submit feedback form
+    var myForm = $('#feedbackForm')
+    var url = myForm.attr('action')
+    myForm.on('submit', function(e){
+      e.preventDefault()
+      $.ajax({
+        method: 'POST',
+        url: url,
+        data: myForm.serialize(),
+        success: (data) => {
+          $('#status').html(`<div class="alert alert-success alert-dismissible fade show" role="alert">
+            ${data.message} <button type="button" style="float:right" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>`)
+        },
+        error: (data) => {
+          $('#status').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            ${data.error}
+  <button type="button"style="float:right" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>`)
+        }
+
+      })
+    })
+      })
+    </script>
   </body>
 </html>

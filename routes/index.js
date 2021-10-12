@@ -47,4 +47,5 @@ router.get('/email', function(req,res){
 })
 router.get('/notifications', ensureAuthenticated,NotificationController.loadNotifications)
 router.get('/your-tasks', ensureAuthenticated, TaskController.myTasks)
+router.post('/:task_id/feedback', ensureAuthenticated, TaskController.feedBack)
 module.exports = router;
