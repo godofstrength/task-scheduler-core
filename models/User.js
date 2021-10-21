@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'user_id'
         })
       User.hasMany(models.Notification, {foreignKey: 'user_id'})
+      User.hasMany(models.Assignee_Feedback, {foreignKey: 'user_id'})
   }};
   
   User.init({

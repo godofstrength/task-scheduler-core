@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Assignee_Feedback.belongsTo(models.Task)
+      Assignee_Feedback.belongsTo(models.Task, {foreignKey: 'task_id'});
+      Assignee_Feedback.belongsTo(models.User, {foreignKey: 'user_id'})
    
     }
   };
@@ -21,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
+    },
+    user_id:{
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     task_id: {
       type: DataTypes.INTEGER,

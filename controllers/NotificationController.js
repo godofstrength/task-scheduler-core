@@ -12,8 +12,6 @@ const NotificationController = {
             ],
             limit: 8
         })
-        
-
         if(notifications){
             res.json({
                 message : notifications

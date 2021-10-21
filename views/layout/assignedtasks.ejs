@@ -78,15 +78,15 @@
                           Dashboard
                       </a>             
                       <div class="sb-sidenav-menu-heading">Filters</div>
-                      <a class="nav-link" href="/your-tasks?status=completed">
+                      <a class="nav-link" href="/assigned-tasks?status=completed">
                           <div class="sb-nav-link-icon"><i class="fas fa-check"></i></div>
                           Completed
                       </a>
-                      <a class="nav-link" href="/your-tasks?status=ongoing">
+                      <a class="nav-link" href="/assigned-tasks?status=ongoing">
                           <div class="sb-nav-link-icon"><i class="far fa-hourglass"></i></div>
                           Ongoing
                       </a>
-                      <a class="nav-link" href="/your-tasks?status=pending">
+                      <a class="nav-link" href="/assigned-tasks?status=pending">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Pending
                     </a>
@@ -99,7 +99,7 @@
           <div class="container-fluid">
             <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/dashboard">Your tasks</a></li>     
+                <li class="breadcrumb-item"><a href="/dashboard">Assigned Tasks</a></li>     
               </ol>
             </nav>
                   <div class="row">
@@ -112,31 +112,7 @@
                             <div class="card-body">
                               <p class="card-text"><%= task.description%> </p>
                                 <p class="card-text">Task status: <%= task.status %>
-                                   <span style="float: right;"><a href="/<%= task.id %>/feedback" class="btn btn-primary btn-sm">comment</a></span>
-                                   <!-- comment modal
-                                   <div class="modal fade" id="Backdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="staticBackdropLabel">Leave a Comment</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <form action="//feedback" id="feedbackForm" method="POST">
-                                            <div class="mb-3">
-                                              <label for="textarea" class="form-label">Your achievements | Problem encountered:</label>
-                                              <textarea id="textArea" name="feedback" rows="4" cols="60" required></textarea>
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                                            </div>
-                                         </form>
-                                        </div>
-                                        
-                                      </div>
-                                    </div>
-                                  </div> -->
+                                   <span style="float: right;"><a href="/<%= task.id%>/feedback" class="btn btn-primary btn-sm">comment</a></span>
                                   </p>
                                 <p class="card-text">
                                   <% if (task.status == 'pending') { %>
@@ -205,7 +181,33 @@
         startTask.on('change', function(){
             startTask.parent().submit()
         })
+// submit feedback form
+//     var myForm = $('#feedbackForm')
+//     var url = myForm.attr('action')
+//     myForm.on('submit', function(e){
+//       e.preventDefault()
+//       $.ajax({
+//         method: 'POST',
+//         url: url,
+//         data: myForm.serialize(),
+//         success: (data) => {
+//           $('#status').html(`<div class="alert alert-success alert-dismissible fade show" role="alert">
+//             ${data.message} <button type="button" style="float:right" class="close" data-dismiss="alert" aria-label="Close">
+//     <span aria-hidden="true">&times;</span>
+//   </button>
+// </div>`)
+//         },
+//         error: (data) => {
+//           $('#status').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+//             ${data.error}
+//   <button type="button"style="float:right" class="close" data-dismiss="alert" aria-label="Close">
+//     <span aria-hidden="true">&times;</span>
+//   </button>
+// </div>`)
+//         }
 
+//       })
+//     })
       })
     </script>
   </body>

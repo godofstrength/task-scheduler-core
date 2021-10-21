@@ -45,7 +45,9 @@ router.post('/project/create-task', ensureAuthenticated, TaskController.createTa
 router.get('/email', function(req,res){
   res.render('emails/newtask.ejs')
 })
-router.get('/notifications', ensureAuthenticated,NotificationController.loadNotifications)
-router.get('/your-tasks', ensureAuthenticated, TaskController.myTasks)
-router.post('/:task_id/feedback', ensureAuthenticated, TaskController.feedBack)
+router.get('/notifications', ensureAuthenticated,NotificationController.loadNotifications);
+router.get('/your-tasks', ensureAuthenticated, TaskController.myTasks);
+router.get('/assigned-tasks', ensureAuthenticated, TaskController.assignedTasks);
+router.get('/:task_id/feedback', ensureAuthenticated, TaskController.feedback);
+router.post('/:task_id/send-feedback', ensureAuthenticated, TaskController.sendFeedBack);
 module.exports = router;
