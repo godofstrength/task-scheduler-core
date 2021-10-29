@@ -95,31 +95,13 @@
              <!--end of modal section -->
           </li>
 
-          <li class=" dropdown nav-item">
-            <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="far fa-bell position-relative">
-                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                  <span class="visually-hidden">New alerts</span>
-                </span>
-              </i>
-              
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
-          </li>
+         
           <li class=" dropdown nav-item">
             <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="far fa-user-circle"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a href="" class="dropdown-item">profile</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
             </ul>
@@ -139,9 +121,14 @@
                           <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                           Dashboard
                       </a>
-                      <div class="sb-sidenav-menu-heading"><i class="fas fa-users"></i>  Members</div>
+                      <a class="nav-link" href="/<%= department.id %>/manage-users">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        Manage users
+                    </a>
+          
+            
                       <% users.forEach(user=> { %>
-                        <a class="nav-link collapsed" href="/admin/manage-users" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                           <%= `${user.firstname} ${user.lastname} `%> 
                       </a>
                       <% }) %>
@@ -161,6 +148,7 @@
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><%= department.code %> </li>
+                    <li class="breadcrumb-item"><a href="/dashboard">Projects</a></li>
                   </ol>
                 </nav>
                 <div class="row">

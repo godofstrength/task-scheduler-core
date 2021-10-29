@@ -132,8 +132,9 @@
                                       <!-- if comment is yours show on the left else show right -->
                                         <div class="<%= feedback.user_id == user.id ? 'chat-message-right' :  'chat-message-left'  %> pb-4">
                                             <div>
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-                                                <div class="text-muted small text-nowrap mt-2"></div>
+                                                <img src="<%=feedback.user_id ==user.id ? 'https://bootdey.com/img/Content/avatar/avatar1.png' : 'https://bootdey.com/img/Content/avatar/avatar5.png'%> " 
+                                                class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                                                <div class="text-muted small text-nowrap mt-2"><%= new Date(feedback.createdAt).getTime() %> </div>
                                             </div>
                                             <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
                                                 <div class="font-weight-bold mb-1"><%= feedback.user_id == user.id ? 'You' : feedback.User.firstname %> </div>

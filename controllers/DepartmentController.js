@@ -6,32 +6,43 @@ const User = require('../models/').User
 
 
 const DepartmentController = {
-    //department index page
     async index(req, res) {
-        // find the department 
-        const department = await Department.findOne({
-            where: { id: req.params.department_id },
-            include: [{
-                model: User
-            }]
-        });
-        // remove the first user|| Superadmin from list
-        department.Users.shift()
-        // if we have a department find the projects 
-        if (department) {
-            const projects = await Project.findAll({ 
-                where: { department_id: department.id },
-                include: [{
-                    model: Task
-                }] 
+        const department_id = isNaN(req.params.department_id) || req.params.department_id == null ? false :
+            req.params.department_id;
+        if (department_id) {
+            // find the user
+            const user = await User.findOne({
+                where: { id: req.user.id },
+                include: {
+                    model: Department
+                }
             })
-
-            console.log(projects.Task)
-
-            res.render('layout/pdashboard', { projects: projects, department: department, users: department.Users })
+            // find the department
+            const department = await Department.findOne({
+                where: { id: department_id },
+            });
+            if (department) {
+                let exist = user.Departments.find(result => result.id == department.id)
+                if(exist){
+                    const projects = await Project.findAll({
+                        where: { department_id: department.id }
+                    })
+                    const users = await department.getUsers();
+                    users.shift()
+                    res.render('layout/pdashboard', { projects: projects, department: department, users: users })
+                } else {
+                req.flash('error_msg', 'Unauthorized')
+                res.redirect('/dashboard')
+            }  
+            } else {
+                res.render('pages/404');
+            }
         } else {
-            res.redirect('/dashboard')
+            res.render('pages/404');
         }
+
+
+
 
     },
 
@@ -51,7 +62,7 @@ const DepartmentController = {
                     role: 1
                 })
                     .then(result => {
-                        req.flash({ success_msg: 'department created successfully' })
+                        req.flash('success_msg', 'department created successfully')
                         res.redirect('/dashboard');
                     })
                     .catch(err => {
@@ -60,10 +71,23 @@ const DepartmentController = {
 
             })
             .catch(err => {
-                req.flash({ error_msg: err.msg })
+                req.flash('error_msg', 'unable to perform request')
                 res.redirect('/dashboard')
             })
 
+    },
+
+    manageUsers : async(req, res) => {
+        // make user user is admin
+       const department = await Department.findOne({
+           where: {id: req.params.department_id}
+        });
+        const users = await department.getUsers({
+            attributes: ['id', 'firstname', 'lastname']
+        });
+        users.shift();
+
+        res.render('layout/members', {users : users, department: department})
     }
 }
 module.exports = DepartmentController;

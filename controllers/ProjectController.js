@@ -7,10 +7,12 @@ const Projectcontroller = {
    
     // create project
     createProject(req, res){
-        console.log('test');
     const{title, description, client, budget} = req.body;
-      const newProject = Project.build({
-            department_id : req.params.department_id,
+    const department_id = isNaN(req.params.department_id) || req.params.department_id == null?
+    false: req.params.department_id;
+    if(department_id){
+        const newProject = Project.build({
+            department_id : department_id,
             title: title,
             description: description,
             client: client,
@@ -26,6 +28,10 @@ const Projectcontroller = {
         req.flash('error_msg', 'An error has occoured')
         res.redirect('back')
     })
+    }else{
+        res.render('pages/404')
+    }
+  
 
     }
 

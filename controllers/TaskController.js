@@ -23,29 +23,29 @@ const TaskController = {
             }]
         });
         const users = department.Users
-          // query filters
-          
-          let filter = (req.query.status) ? req.query.status : null;
-          let limit = 12
+        // query filters
+
+        let filter = (req.query.status) ? req.query.status : null;
+        let limit = 12
         // find all tasks belonging to the project
-        if(filter != null){
-            const tasks = await Task.findAll({ 
-                where: { 
+        if (filter != null) {
+            const tasks = await Task.findAll({
+                where: {
                     project_id: project.id,
                     status: filter
                 },
-                limit : limit           
-        })
-        res.render('layout/taskdashboard', {tasks: tasks, project: project, users: users, department: department})
-        }else{
-            const tasks = await Task.findAll({ 
-                where: {project_id: project.id},
-                limit : limit
-        })
-        res.render('layout/taskdashboard', {tasks: tasks, project: project, users: users, department: department})
+                limit: limit
+            })
+            res.render('layout/taskdashboard', { tasks: tasks, project: project, users: users, department: department })
+        } else {
+            const tasks = await Task.findAll({
+                where: { project_id: project.id },
+                limit: limit
+            })
+            res.render('layout/taskdashboard', { tasks: tasks, project: project, users: users, department: department })
         }
 
-       
+
     },
 
 
@@ -57,7 +57,7 @@ const TaskController = {
         if (today > end) {
             errors.push({ msg: 'End date cannot be in the past' })
         }
-        if (errors.count > 0) {
+        if (errors.length > 0) {
             req.flash('error_msg', errors[0].msg)
             res.redirect('/' + project_id + '/tasks')
         } else {
@@ -75,7 +75,7 @@ const TaskController = {
                     await Notification.create({
                         user_id: assignedTo,
                         title: `New task from ${req.user.firstname}`,
-                        created_by : req.user.id,
+                        created_by: req.user.id,
                         read: false,
                     }, { transaction: t })
 
@@ -86,7 +86,7 @@ const TaskController = {
                 // If the execution reaches this line, the transaction has been committed successfully
                 // notify the assigned user
                 // find the user
-                if(result){
+                if (result) {
                     const recipient = await User.findbyPk(parseInt(assignedTo), { attributes: ['email', 'firstname'] })
                     if (recipient) {
                         // if user exist send the mail
@@ -108,15 +108,15 @@ const TaskController = {
                             }
                         })
                     }
-    
+
                     else {
                         req.flash('error_msg', 'unable to send mail')
                     }
-    
+
                     req.flash('success_msg', 'task created successfully')
                     res.redirect('/' + project_id + '/tasks')
                 }
-               
+
             } catch (error) {
                 // If the execution reaches this line, an error occurred.
                 // The transaction has already been rolled back automatically by Sequelize!
@@ -129,127 +129,166 @@ const TaskController = {
 
     },
 
-    myTasks: async(req, res) => {
-        let filter = (req.query.status)? req.query.status : null
-        if(filter != null){
+    myTasks: async (req, res) => {
+        let filter = (req.query.status) ? req.query.status : null
+        if (filter != null) {
             const myTasks = await Task.findAll({
                 where: {
-                    assignedTo: req.user.id, 
+                    assignedTo: req.user.id,
                     status: filter
                 },
                 attributes: ['id', 'title', 'description', 'status'],
             })
-    
-            res.render('layout/yourtasks', {tasks: myTasks})
-        }else{
+
+            res.render('layout/yourtasks', { tasks: myTasks })
+        } else {
             const myTasks = await Task.findAll({
-                where: {assignedTo: req.user.id},
+                where: { assignedTo: req.user.id },
                 attributes: ['id', 'title', 'description', 'status']
             })
-    
-            res.render('layout/yourtasks', {tasks: myTasks})
+
+            res.render('layout/yourtasks', { tasks: myTasks })
         }
-      
+
     },
 
     startTask: (req, res) => {
-        let updateValues = {status: 'ongoing'}
-        Task.update(updateValues, {where: {id: req.params.task_id}})
-        .then(result => {
-            req.flash('success_msg', 'success')
-            res.redirect('back')
-        })
-        .catch(error =>{
-            req.flash('error_msg', error.msg)
-            res.redirect('back')
-        })
+        let updateValues = { status: 'ongoing' }
+        Task.update(updateValues, { where: { id: req.params.task_id } })
+            .then(result => {
+                req.flash('success_msg', 'success')
+                res.redirect('back')
+            })
+            .catch(error => {
+                req.flash('error_msg', error.msg)
+                res.redirect('back')
+            })
     },
-   completeTask: (req, res) => {
-        let updateValues = {status: 'completed'}
-        Task.update(updateValues, {where: {id: req.params.task_id}})
-        .then(result => {
-            req.flash('success_msg', 'success')
-            res.redirect('back')
-        })
-        .catch(error =>{
-            req.flash('error_msg', error.msg)
-            res.redirect('back')
-        })
+    completeTask: (req, res) => {
+        let updateValues = { status: 'completed' }
+        Task.update(updateValues, { where: { id: req.params.task_id } })
+            .then(result => {
+                req.flash('success_msg', 'success')
+                res.redirect('back')
+            })
+            .catch(error => {
+                req.flash('error_msg', error.msg)
+                res.redirect('back')
+            })
     },
 
-    feedback: async(req, res) => {
+    feedback: async (req, res) => {
         const user = await User.findOne({
-            where: {id: req.user.id},
-            attributes: ['id','firstname', 'lastname']
+            where: { id: req.user.id },
+            attributes: ['id', 'firstname', 'lastname']
         })
         // find the tasks and feedback
-        const task = await Task.findOne({
-            where: {id: req.params.task_id},
-            attributes: ['id', 'title']
-        })
-        if(task){
-        // find feedbacks
-        const feedbacks = await Assignee_Feedback.findAll({
-            where: {task_id: task.id},
-            include: [{
-                model: User
-            }],
-            order: [
-                ['id', 'ASC']
-            ]
-        })
-        res.render('layout/feedback', {user: user, task: task, feedbacks: feedbacks})
-           
-        }else{
-        req.flash('error_msg', 'Task not found');
-        res.redirect('back')
+        const task_id = isNaN(req.params.task_id) || req.params.task_id == null ?
+            false : req.params.task_id;
+        if (task_id) {
+            const task = await Task.findOne({
+                where: { id: task_id },
+                attributes: ['id', 'title', 'user_id', 'assignedTo']
+            })
+            if (task) {
+                // check if user created the task or is assigned the task
+                if (task.user_id == user.id || task.assignedTo == user.id) {
+                    // find feedbacks
+                    const feedbacks = await Assignee_Feedback.findAll({
+                        where: { task_id: task.id },
+                        include: [{
+                            model: User
+                        }],
+                        order: [
+                            ['id', 'ASC']
+                        ]
+                    })
+                    res.render('layout/feedback', { user: user, task: task, feedbacks: feedbacks })
+
+                } else {
+                    req.flash('error_msg', 'Forbidden');
+                    res.redirect('/dashboard')
+                }
+            } else {
+                req.flash('error_msg', 'Task not found');
+                res.redirect('back')
+            }
+
+        } else {
+            res.render('pages/404')
         }
-       
-      
+
+
+
     },
 
-    sendFeedBack: async(req, res) => {
+    sendFeedBack: async (req, res) => {
         const feedback = req.body.feedback
         console.log(feedback);
-        if(!feedback){
+        if (!feedback) {
             res.status(400).json({
                 error: 'empty fields'
             })
         }
         const result = await Assignee_Feedback.create({
             user_id: req.user.id,
-            task_id : req.params.task_id,
+            task_id: req.params.task_id,
             comment: feedback
         })
-        if(result){
-         res.redirect('/'+req.params.task_id+'/feedback')
-        }else{
-          req.flash('error_msg', 'unable to perform request')
+        if (result) {
+            res.redirect('/' + req.params.task_id + '/feedback')
+        } else {
+            req.flash('error_msg', 'unable to perform request')
         }
     },
 
-    assignedTasks: async(req, res) => {
-        let filter = (req.query.status)? req.query.status : null
-        if(filter != null){
+    assignedTasks: async (req, res) => {
+        let filter = (req.query.status) ? req.query.status : null
+        if (filter != null) {
             const myTasks = await Task.findAll({
                 where: {
-                    user_id: req.user.id, 
+                    user_id: req.user.id,
                     status: filter
                 },
                 attributes: ['id', 'title', 'description', 'status'],
             })
-    
-            res.render('layout/assignedtasks', {tasks: myTasks})
-        }else{
+
+            res.render('layout/assignedtasks', { tasks: myTasks })
+        } else {
             const myTasks = await Task.findAll({
-                where: {user_id: req.user.id},
+                where: { user_id: req.user.id },
                 attributes: ['id', 'title', 'description', 'status']
             })
-    
-            res.render('layout/assignedtasks', {tasks: myTasks})
+
+            res.render('layout/assignedtasks', { tasks: myTasks })
         }
-      
-    }
+
+    },
+
+//     updateTask: async(req, res) => {
+
+// // find the task
+//         const task_id = isNaN(req.params.task_id) || req.params.task_id == null ? false: 
+//         req.params.task_id
+//         if(task_id){
+//             const task = Task.findOne({
+//                 where: {id: task_id}
+//             })
+//             if(task){
+//                 // only admin or user that created can edit task
+//                 if(task.user_id == req.user.id || req.role == 'superAdmin'){
+//                     task.update({
+//                         title: req.
+//                     })
+//                 }
+//             }else{
+//                 res.render('pages/404')
+//             }
+//         }else{
+//             res.render('pages/404')
+//         }
+
+//     }
 }
 
 module.exports = TaskController;

@@ -96,6 +96,81 @@ const AdminController = {
     }
 },
 
+    makeAdmin(req, res){
+    
+        if(req.role == 1 || req.role == 2){
+            const user_id = isNaN(req.body.user_id) || !req.body.user_id ? false : req.body.user_id;
+            if(user_id){
+                Department_User.update(
+                    {role: 2},
+                    {where: {
+                        id: user_id,
+                        department_id: req.params.department_id
+                    }}
+                ).then(result => {
+                    console.log('success');
+                    req.flash('success_msg', 'successful');
+                    res.redirect('back');
+                    // res.redirect(`/${department_id}/manage-users`);
+                }).catch((err) => {
+                    console.log('error: '+ err.msg)
+                    req.flash('error_msg', 'unable to perform request');
+                    res.redirect('back');
+                })
+            }
+        }else{
+            req.flash('error_msg', 'Unauthorized');
+            res.redirect('/dashboard');
+        }
+    },
+     
+    unmakeAdmin(req, res){
+        if(req.role == 1 || req.role == 2){
+            const user_id = isNaN(req.body.user_id) || !req.body.user_id ? false : req.body.user_id;
+            if(user_id){
+                Department_User.update(
+                    {role: 3},
+                    {where: {
+                        user_id : user_id,
+                        department_id : req.params.department_id
+                    }
+                }
+                ).then(result => {
+                    req.flash('success_msg', 'successful');
+                    res.redirect(`/${department_id}/manage-users`)
+                }).catch((err) => {
+                    req.flash('error_msg', 'unable to perform request');
+                    res.redirect('back');
+                })
+            }
+        }else{
+            req.flash('error_msg', 'Unauthorized');
+            res.redirect('/');
+        }
+    },
+
+    removeUser : async(req, res)=> {
+        if(req.role == 1 || req.role == 2){
+            const user_id = isNaN(req.body.user_id) || !req.body.user_id ? false : req.body.user_id;
+            if(user_id){
+                Department_User.destroy({
+                    where : {
+                        user_id: user_id,
+                        department_id: req.params.department_id
+                    }
+                }).then(result => {
+                    req.flash('success_msg', 'successful');
+                    res.redirect(`/${department_id}/manage-users`)
+                }).catch((err) => {
+                    req.flash('error_msg', 'unable to perform request');
+                    res.redirect('back');
+                })
+            }
+        }else{
+            req.flash('error_msg', 'Unauthorized');
+            res.redirect('/dashboard');
+        }
+    }
  
  
 

@@ -9,10 +9,6 @@ const passport = require('passport');
 require('./utils/Passport')(passport);
 
 
-
-
-
-
 // var usersRouter = require('./routes/users');
 var indexRouter = require('./routes/index');
 // DB connection
@@ -46,6 +42,7 @@ app.use(session({
   resave : false,
   saveUninitialized : false,
 }));
+
 // connect flash
 app.use(flash());
 // local variables

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Members</title>
+    <link rel="stylesheet" href="../stylesheets/dashboard.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #fff;
+        }
+
+        #team {
+            background: #eee !important;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: rgb(46, 141, 185);
+            border-color: rgb(12, 71, 99);
+            box-shadow: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color:rgb(31, 130, 177);
+            border-color: rgb(31, 130, 177);
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        section .section-title {
+            text-align: center;
+            color: rgb(31, 130, 177);
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+        #team .card {
+            border: none;
+            background: #ffffff;
+        }
+
+        .frontside,
+
+
+        .frontside .card,
+        .backside .card {
+            min-height: 312px;
+        }
+
+        .backside .card a {
+            font-size: 18px;
+            color: rgb(31, 130, 177) !important;
+        }
+
+        .frontside .card .card-title,
+        .backside .card .card-title {
+            color: rgb(31, 130, 177) !important;
+        }
+
+        .frontside .card .card-body img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+        }
+
+        .addmember {
+            float: right;
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 6vw;
+            }
+        }
+
+        @media (min-width: 576px && max-width:768px) {}
+
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 4vw;
+            }
+        }
+    </style>
+  
+</head>
+
+<body>
+    <nav class="navbar navbar-expand navbar-light bg-light">
+        <div class="container-fluid">
+            <button class="btn btn-link btn-sm  text-lg-start" id="sidebarToggle" href="#"><i
+                    class="fas fa-bars"></i></button>
+            <a class="navbar-brand" href="#">
+
+                <img class="preload-me"
+                    src="https://interranetworks.ng/wp-content/uploads/2020/06/Interra-Logo-08-08-e1593411073312.png"
+                    srcset="https://interranetworks.ng/wp-content/uploads/2020/06/Interra-Logo-08-08-e1593411073312.png 203w, https://interranetworks.ng/wp-content/uploads/2020/06/Interra-Logo-08-08-e1593411073312.png 203w"
+                    width="153" alt="Interra Networks">
+            </a>
+            <ul class="navbar-nav">
+
+
+
+                <li class=" dropdown nav-item">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="far fa-user-circle"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a href="" class="dropdown-item">profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <div class="sb-sidenav-menu-heading">Core</div>
+
+                        <a class="nav-link" href="/dashboard">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <a class="nav-link" href="/<%= department.id %>/manage-users">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Manage users
+                        </a>
+
+
+                        <% users.forEach(user=> { %>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
+                                aria-expanded="false" aria-controls="collapseLayouts">
+                                <%= `${user.firstname} ${user.lastname} `%>
+                            </a>
+                            <% }) %>
+                                <div class="sb-sidenav-menu-heading">Addons</div>
+                                <a class="nav-link collapsed" href="/your-tasks" data-toggle="collapse"
+                                    data-target="#collapseLayouts" aria-expanded="false"
+                                    aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tasks"></i></div>
+                                    Your tasks
+                                </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                        aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <%= department.code %>
+                            </li>
+                            <li class="breadcrumb-item">Members</li>
+                        </ol>
+                    </nav>
+                    <div class="row">
+                        <% users.forEach(user => { %>
+                          <!-- Team member -->
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip">
+                                <div class="mainflip flip-0">
+                                    <div class="frontside">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <p><img class=" img-fluid"
+                                                        src="https://media.istockphoto.com/photos/learn-to-love-yourself-first-picture-id1291208214?b=1&k=20&m=1291208214&s=170667a&w=0&h=sAq9SonSuefj3d4WKy4KzJvUiLERXge9VgZO-oqKUOo="
+                                                        alt="card image"></p>
+                                                <h4 class="card-title"><%= `${user.firstname} ${user.lastname}` %> </h4>
+                                                <p class="card-text">Role: <%= user.Department_User.role == 2 ? 'Admin' : 'Member'%></p>
+                                                <form action="/<%= department.id%>/remove-user" method="post">
+                                                    <input type="hidden" name="user_id" value="<%=user.id%>">
+                                                    <button type="submit" class="remove btn btn-primary btn-sm mb-1">Remove</button>
+                                                </form>
+                                                
+                                                <% if (user.Department_User.role == 2) { %>
+                                                    <form action="/<%=department.id%>/manage-users/withdraw_admin" method="post">
+                                                        <input type="hidden" name="user_id" value="<%=user.id%> ">
+                                                        <button class="unMake btn btn-primary btn-sm">withdraw Priviledges</button>
+                                                    </form>
+                                                <% }else{ %>
+                                                    <form action="/<%= department.id %>/manage-users/make_admin" method="post">
+                                                        <input type="hidden" name="user_id" value="<%=user.id%> ">
+                                                        <button type="submit" class="make btn btn-primary btn-sm">make admin</button>
+                                                    </form>
+
+                                               <% } %> 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./Team member -->
+            
+                        <% }) %>
+                       
+
+
+                    </div>
+
+                    <br>
+<!-- loader -->
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="static" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Create project</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/<%= department.id %>/createProject" method="POST">
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Project Title</label>
+                                            <input type="text" class="form-control" name="title" id="name"
+                                                placeholder="">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="des" class="form-label">Project Description</label>
+                                            <input type="text" class="form-control" name="description" id="des"
+                                                placeholder="">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="bud" class="form-label">Budget</label>
+                                            <input type="text" name="budget" class="form-control" id="bud"
+                                                placeholder="">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="client" class="form-label">Client</label>
+                                            <input type="text" name="client" class="form-control" id="client"
+                                                placeholder="">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Create</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of modal -->
+
+                </div>
+        </div>
+        </main>
+    </div>
+    </div>
+    <script src="https://kit.fontawesome.com/743fcf6cf7.js" crossorigin="anonymous"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../jquery/jquery.js"></script>
+    <script src="../javascripts/scripts.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            
+            // make admin
+            $('.make').on('click', function(e){
+                e.preventDefault()
+                if(confirm('Are you sure you want to perform this action')){
+                $(this).parent('form').submit()
+                }
+            })
+            // unmake admin
+            $('.unMake').on('click', function(e){
+                e.preventDefault()
+                if(confirm('Are you sure you want to perform this action')){
+                    $(this).parent('form').submit()
+                }
+            })
+        // remove user
+        $('.removeUser').on('click', function(e){
+                e.preventDefault();
+                if(confirm('The following action will remove the user from the department. Are you sure?')){
+                    $(this).parent('form').submit()
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
