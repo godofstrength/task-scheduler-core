@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="./stylesheets/dashboard.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+     body{
+    background:#fff;    
+}
+/*==================================================
+  Nearby People CSS
+  ==================================================*/
+
+.people-nearby .google-maps{
+  background: #f8f8f8;
+  border-radius: 4px;
+  border: 1px solid #f1f2f2;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.people-nearby .google-maps .map{
+  height: 300px;
+  width: 100%;
+  border: none;
+}
+.people-nearby .nearby-user{
+  padding: 20px 0;
+  border-top: 1px solid #f1f2f2;
+  border-bottom: 1px solid #f1f2f2;
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 575px) {
+    .people-nearby .nearby-user{
+        text-align: center;
+    }
+}
+img.profile-photo-lg{
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
+.profile-link{
+    text-transform: capitalize;
+}
+    </style>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand navbar-light bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-link btn-sm  text-lg-start" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <a class="navbar-brand" href="#">Navbar</a>
+        <ul class="navbar-nav">
+          <% if (role == 'SuperAdmin') { %>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <i class="fas fa-user-plus"></i>
+              </a>
+            </li>
+          <% } %>
+         
+
+          <li class=" dropdown nav-item">
+            <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i  id="notification" class="far fa-bell position-relative">
+                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                  <span class="visually-hidden">Notifications</span>
+                </span>
+              </i>
+              
+            </a>
+          
+            <div id="statusText" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+             
+            </div>
+          </li>
+          <li class=" dropdown nav-item">
+            <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="far fa-user-circle"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">Change Password</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div id="layoutSidenav">
+      <div id="layoutSidenav_nav">
+          <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+              <div class="sb-sidenav-menu">
+                  <div class="nav">
+                      
+                      <div class="sb-sidenav-menu-heading">Core</div>
+
+                      <a class="nav-link" href="/dashboard">
+                          <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                          Dashboard
+                      </a>
+                      <div class="sb-sidenav-menu-heading">Interface</div>
+                   
+                    <a class="nav-link collapsed user" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                      <div class="sb-nav-link-icon"><i class="fas fa-user-circle"></i></div>
+                      <%= `${user.firstname} ${user.lastname}` %> 
+                    </a>
+                    <a class="nav-link collapsed" href="/manage-users" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        Manage Users
+                    </a>
+                    <a class="nav-link collapsed" href="/your-tasks" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                      <div class="sb-nav-link-icon"><i class="fas fa-tasks"></i></div>
+                      Your tasks
+                  </a>
+                  <a class="nav-link collapsed" href="/assigned-tasks" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fa fa-exchange"></i></div>
+                    Assigned Tasks
+                </a>
+                    
+                  </div>
+              </div>
+              <div class="sb-sidenav-footer">
+                <div class="small">Role:</div>
+                <%= role %> 
+            </div>
+          </nav>
+      </div>
+      <div id="layoutSidenav_content">
+          <main>
+              <div id="status">
+
+              </div>
+              <!-- content -->
+              <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-xs-12">
+                        <div class="people-nearby">
+                            <% users.forEach(user => { %>
+                                <div class="nearby-user">
+                                    <div class="row">
+                                      <div class="col-md-2 col-sm-2">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user" class="profile-photo-lg">
+                                      </div>
+                                      <div class="col-md-7 col-sm-7">
+                                        <h5><a href="#" class="profile-link"><%= `${user.firstname} ${user.lastname}` %> </a></h5>
+                                        <p>Software Engineer</p>
+                                        <p class="text-muted">500m away</p>
+                                      </div>
+                                      <div class="col-md-3 col-sm-3">
+                                        <a href="/<%=user.id%>/profile" class="btn btn-primary btn-sm pull-right">See More</a>
+                                        <a class="btn btn-danger btn-sm pull-right">Remove</a>
+                                      </div>
+                                    </div>
+                                  </div>
+                            <% }) %>       
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </main>
+      </div>
+   </div>
+
+    <script src="https://kit.fontawesome.com/743fcf6cf7.js" crossorigin="anonymous"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./jquery/jquery.js"></script>
+    <script src="./javascripts/scripts.js"></script>
+  </body>
+</html>

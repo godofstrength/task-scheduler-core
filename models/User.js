@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
         })
       User.hasMany(models.Notification, {foreignKey: 'user_id'})
       User.hasMany(models.Assignee_Feedback, {foreignKey: 'user_id'})
+
+      User.belongsToMany(models.Role,{
+        through: models.Role_User,
+        foreignKey: 'user_id'
+      })
   }};
   
   User.init({

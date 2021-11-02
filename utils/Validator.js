@@ -41,16 +41,18 @@ const  createDepartmentValidation = () =>{
         }
     }
     const isSuperAdmin = async(req,res, next) => {
-     
-
-        const userRole = await Role_User.findOne({where: {user_id: user.id}})
-        if(userRole.role_id == 1){
+        const user = await User.findOne({
+            where: {id: req.user.id},
+            include: [{
+                model: Role
+            }]
+        })
+        if(user.Roles[0].id == 1){
             req.role = 'superAdmin'
             return next()
         }
         else{
-            req.flash('error_msg', 'unauthorized')
-            res.redirect('back')
+            return next()
         }
     }
     // checks if user is in a department

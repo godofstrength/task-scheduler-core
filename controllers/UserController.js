@@ -3,8 +3,8 @@ const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const Token = require('../models/').Token;
-
-
+const Department = require('../models/').Department
+const Task = require('../models/').Task
 
 const UserController = {
         // passport Login
@@ -113,8 +113,30 @@ const UserController = {
          } catch (error) {
              console.log(error);
          }
+     },
+     
+     async profile (req, res){
+         const role = req.role == null ? 'member' : req.role  
+         if(role == 'superAdmin' || req.user.id == req.params.user_id){
+            const user = await User.findOne({
+                where: {id: req.user.id},
+                    include: [{
+                        model: Department,
+                        attributes: ['id', 'title', 'code']
+                    }]
+                })
+
+            const userTasks = Task.findAll({
+                where: {assignedTo: user.id}
+            })
+    
+            res.render('layout/userprofile', {user: user, userTasks: userTasks, role: role})
+        }else{
+            req.flash('error_msg', 'Unauthorized');
+            res.redirect('/dashboard')
+        }
+      
      }
- 
 
 }
 module.exports = UserController;

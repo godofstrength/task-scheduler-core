@@ -96,6 +96,21 @@ const AdminController = {
     }
 },
 
+    async allUsers(req, res){
+        if(req.role == "superAdmin"){
+            const user = await User.findOne({where: {id: req.user.id}})
+            const users = await User.findAll({
+                limit : 15
+            })
+    
+            res.render('layout/allusers', {users: users, role: req.role, user: user})
+        }else{
+            req.flash('error_msg', 'Unauthorized');
+            res.redirect('/dashboard');
+        }
+       
+    },
+
     makeAdmin(req, res){
     
         if(req.role == 1 || req.role == 2){

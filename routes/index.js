@@ -18,8 +18,9 @@ router.get('/task',function(req, res){
   res.render('layout/taskdashboard');
 })
 // login user
-router.post('/login', UserController.login)
-router.get('/logout', UserController.logout)
+router.post('/login', UserController.login);
+router.get('/logout', UserController.logout);
+
 
 // reset password
 router.get('/reset_password', UserController.reset);
@@ -27,10 +28,12 @@ router.get('/reset_password', UserController.reset);
 //forget password
 router.get('/forget_password', UserController.forget);
 // dashboard
+router.get('/:user_id/profile', ensureAuthenticated, isSuperAdmin, UserController.profile);
 router.get('/dashboard', ensureAuthenticated, isAdmin, AdminController.index)
 
 // admin routes
 router.post('/admin/create-user', ensureAuthenticated, isSuperAdmin, AdminController.createUser);
+router.get('/manage-users', ensureAuthenticated, isSuperAdmin, AdminController.allUsers)
 router.post('/:department_id/remove-user', ensureAuthenticated, isMember, AdminController.removeUser);
 router.post('/:department_id/manage-users/make_admin', ensureAuthenticated, isMember, AdminController.makeAdmin);
 router.post('/:department_id/manage-users/withdraw_admin', ensureAuthenticated, isMember, AdminController.unmakeAdmin);
