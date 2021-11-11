@@ -116,21 +116,23 @@ const UserController = {
      },
      
      async profile (req, res){
-         const role = req.role == null ? 'member' : req.role  
+         const role = req.role == null ? 'member' : req.role 
          if(role == 'superAdmin' || req.user.id == req.params.user_id){
             const user = await User.findOne({
-                where: {id: req.user.id},
+                where: {id: req.params.user_id},
                     include: [{
                         model: Department,
                         attributes: ['id', 'title', 'code']
                     }]
                 })
 
-            const userTasks = Task.findAll({
+            const userTasks = await Task.findAll({
                 where: {assignedTo: user.id}
             })
-    
-            res.render('layout/userprofile', {user: user, userTasks: userTasks, role: role})
+            const departments = await Department.findAll({
+                attributes: ['id', 'title']
+            })
+            res.render('layout/userprofile', {user: user, userTasks: userTasks, role: role, userDepts: user.Departments, departments: departments})
         }else{
             req.flash('error_msg', 'Unauthorized');
             res.redirect('/dashboard')

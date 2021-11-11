@@ -34,6 +34,9 @@ const TaskController = {
                     project_id: project.id,
                     status: filter
                 },
+                order:[
+                    ['id', 'DESC']
+                ],
                 limit: limit
             })
             res.render('layout/taskdashboard', { tasks: tasks, project: project, users: users, department: department })

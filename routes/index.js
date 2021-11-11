@@ -43,6 +43,7 @@ router.post('/admin/create-department', ensureAuthenticated ,createDepartmentVal
 router.get('/:department_id/projects',ensureAuthenticated, isAdmin,DepartmentController.index)
 router.post('/:department_id/createProject', ensureAuthenticated, ProjectController.createProject)
 router.get('/:department_id/manage-users', ensureAuthenticated, isMember, DepartmentController.manageUsers);
+router.post('/profile/add-department', ensureAuthenticated, isSuperAdmin, DepartmentController.addUser)
 // task routes 
 router.post('/:task_id/start-task', ensureAuthenticated, TaskController.startTask)
 router.post('/:task_id/complete-task', ensureAuthenticated, TaskController.completeTask)

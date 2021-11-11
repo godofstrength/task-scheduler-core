@@ -88,6 +88,27 @@ const DepartmentController = {
         users.shift();
 
         res.render('layout/members', {users : users, department: department})
+    },
+
+    // add user to a department
+        addUser : async(req, res) => {
+        if(req.role == 'superAdmin'){
+            const user_id = parseInt(req.body.user)
+            const department_id = parseInt(req.body.department)
+            Department_User.create({
+                user_id: user_id,
+                department_id: department_id,
+                role: 1
+            })
+            .then(result => {
+                req.flash('success_msg', 'Success')
+                res.redirect(`/${user_id}`/profile)
+            }).catch()
+        }else{
+            req.flash('error_msg', 'Unauthorized');
+            res.redirect('/dashboard');
+        }
+      
     }
 }
 module.exports = DepartmentController;
