@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const flash = require('connect-flash');
-const session = require('express-session');
+const session = require('cookie-session');
 const passport = require('passport');
 require('./utils/Passport')(passport);
 
