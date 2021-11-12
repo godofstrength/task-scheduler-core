@@ -18,6 +18,7 @@
     "password": "8eed8bb0e616281e5e504bf75c144f5a6f14fc463fd7a6b4c0e0c4183c8c7f83",
     "database": "dp0701njiedvf",
     "host": "ec2-107-23-135-132.compute-1.amazonaws.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": "5432"
   }
 }
